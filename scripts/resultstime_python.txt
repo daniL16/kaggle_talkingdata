@@ -1,0 +1,68 @@
+kNN	0.644751774672
+0.91  101356
+Linear Regression	0.75895885126
+0.97 94460
+Logistic Regression	Traceback (most recent call last):
+  File "logistic_regression.py", line 20, in <module>
+    score = cross_val_score(clf, train_x, train_y,cv=kf)
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/model_selection/_validation.py", line 321, in cross_val_score
+    pre_dispatch=pre_dispatch)
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/model_selection/_validation.py", line 195, in cross_validate
+    for train, test in cv.split(X, y, groups))
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/externals/joblib/parallel.py", line 779, in __call__
+    while self.dispatch_one_batch(iterator):
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/externals/joblib/parallel.py", line 625, in dispatch_one_batch
+    self._dispatch(tasks)
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/externals/joblib/parallel.py", line 588, in _dispatch
+    job = self._backend.apply_async(batch, callback=cb)
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/externals/joblib/_parallel_backends.py", line 111, in apply_async
+    result = ImmediateResult(func)
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/externals/joblib/_parallel_backends.py", line 332, in __init__
+    self.results = batch()
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/externals/joblib/parallel.py", line 131, in __call__
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/externals/joblib/parallel.py", line 131, in <listcomp>
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/model_selection/_validation.py", line 437, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/linear_model/logistic.py", line 1291, in fit
+    for class_, warm_start_coef_ in zip(classes_, warm_start_coef))
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/externals/joblib/parallel.py", line 779, in __call__
+    while self.dispatch_one_batch(iterator):
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/externals/joblib/parallel.py", line 625, in dispatch_one_batch
+    self._dispatch(tasks)
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/externals/joblib/parallel.py", line 588, in _dispatch
+    job = self._backend.apply_async(batch, callback=cb)
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/externals/joblib/_parallel_backends.py", line 111, in apply_async
+    result = ImmediateResult(func)
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/externals/joblib/_parallel_backends.py", line 332, in __init__
+    self.results = batch()
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/externals/joblib/parallel.py", line 131, in __call__
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/externals/joblib/parallel.py", line 131, in <listcomp>
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/linear_model/logistic.py", line 710, in logistic_regression_path
+    iprint=(verbose > 0) - 1, pgtol=tol, maxiter=max_iter)
+  File "/usr/local/lib/python3.5/dist-packages/scipy/optimize/lbfgsb.py", line 193, in fmin_l_bfgs_b
+    **opts)
+  File "/usr/local/lib/python3.5/dist-packages/scipy/optimize/lbfgsb.py", line 328, in _minimize_lbfgsb
+    f, g = func_and_grad(x)
+  File "/usr/local/lib/python3.5/dist-packages/scipy/optimize/lbfgsb.py", line 278, in func_and_grad
+    f = fun(x, *args)
+  File "/usr/local/lib/python3.5/dist-packages/scipy/optimize/optimize.py", line 292, in function_wrapper
+    return function(*(wrapper_args + args))
+  File "/usr/local/lib/python3.5/dist-packages/scipy/optimize/optimize.py", line 63, in __call__
+    fg = self.fun(x, *args)
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/linear_model/logistic.py", line 111, in _logistic_loss_and_grad
+    w, c, yz = _intercept_dot(w, X, y)
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/linear_model/logistic.py", line 74, in _intercept_dot
+    z = safe_sparse_dot(X, w) + c
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/utils/extmath.py", line 140, in safe_sparse_dot
+    return np.dot(a, b)
+KeyboardInterrupt
+Command exited with non-zero status 1
+70.32 94480
+./run_py.sh: línea 11: ression.py: orden no encontrada
+Decision Tree	0.738456879743
+0.74 ?;
+SVM	

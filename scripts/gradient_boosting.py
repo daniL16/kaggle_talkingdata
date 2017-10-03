@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from sklearn.linear_model import LogisticRegression
+from sklearn import ensemble
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
 
@@ -15,7 +15,11 @@ train_y=data.iloc[:-20,37]
 test_x=data.iloc[-20:,:37]
 test_y=data.iloc[-20:,37]
 
-clf = LogisticRegression(solver='lbfgs', max_iter=500, random_state=42)
+params = {'n_estimators': 500, 'max_depth': 4, 'min_samples_split': 2,
+          'learning_rate': 0.01, 'loss': 'ls'}
+clf = ensemble.GradientBoostingRegressor(**params)
+
 kf = KFold(n_splits=10)
-score = cross_val_score(clf, train_x, train_y,cv=kf)
+score = cross_val_score(clf, train_x, train_y,
+cv=kf)
 print(score.mean())
