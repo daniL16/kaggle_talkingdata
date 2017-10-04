@@ -1,7 +1,7 @@
-kNN	0.644751774672
-0.91  101356
-Linear Regression	0.75895885126
-0.97 94460
+kNN	0.350023100493 5.03627147173
+0.81  100928
+Linear Regression	0.605077324456 4.32823102988
+0.92 92676
 Logistic Regression	Traceback (most recent call last):
   File "logistic_regression.py", line 20, in <module>
     score = cross_val_score(clf, train_x, train_y,cv=kf)
@@ -61,8 +61,22 @@ Logistic Regression	Traceback (most recent call last):
     return np.dot(a, b)
 KeyboardInterrupt
 Command exited with non-zero status 1
-70.32 94480
-./run_py.sh: línea 11: ression.py: orden no encontrada
-Decision Tree	0.738456879743
-0.74 ?;
-SVM	
+2193.95 100608
+Decision Tree	0.587526981515 5.08494744298
+0.75 ?;
+SVM	Traceback (most recent call last):
+  File "svm.py", line 19, in <module>
+    pred = svr_poly.fit(train_x,train_y).predict(test_x)
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/svm/base.py", line 149, in fit
+    X, y = check_X_y(X, y, dtype=np.float64, order='C', accept_sparse='csr')
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/utils/validation.py", line 542, in check_X_y
+    ensure_min_features, warn_on_dtype, estimator)
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/utils/validation.py", line 402, in check_array
+    array = np.array(array, dtype=dtype, order=order, copy=copy)
+ValueError: could not convert string to float: 'Rec'
+Command exited with non-zero status 1
+0.74 90324
+RandomForest	0.830029257782 0.0243461746882
+2.24 87168
+Gradient Boosting	0.726205633826 3.95145898036
+17.81 88300
