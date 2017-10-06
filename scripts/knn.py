@@ -20,4 +20,4 @@ pred = knn.fit(train_x,train_y).predict(test_x)
 kf = KFold(n_splits=10)
 score = cross_val_score(knn, test_x, test_y,
 cv=kf)
-print(score.mean(),mean_squared_log_error(test_y, pred))
+print(knn.score(test_x,test_y),mean_squared_log_error(test_y, pred))

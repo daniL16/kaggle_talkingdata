@@ -13,8 +13,8 @@ train_y=data.iloc[:-292,37]
 test_x=data.iloc[-292:,:37]
 test_y=data.iloc[-292:,37]
 
-svr_rbf = SVR()
-pred = svr_rbf.fit(train_x,train_y).predict(test_x)
+svr= SVR()
+pred = svr.fit(train_x,train_y).predict(test_x)
 kf = KFold(n_splits=10)
-score = cross_val_score(svr_rbf, test_x, test_y,cv=kf)
-print(clf.score(test_x,test_y),mean_squared_log_error(test_y, pred))
+score = cross_val_score(svr, test_x, test_y,cv=kf)
+print(svr.score(test_x,test_y),mean_squared_log_error(test_y, pred))

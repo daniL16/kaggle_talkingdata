@@ -1,47 +1,11 @@
 Algorithm,Score,Mean Squared,Time,Memory
-kNN	0.295939110596 3.08496235422
-0.96  99860
-Decision Tree	0.475793389078 2.7900500461
-0.69 ?;
-RandomForest	0.690175410075 2.13505914913
-1.04 85988
-Gradient Boosting	0.6752001673 1.95268913716
-4.71 91316
-AdaBoost	0.540889886947 3.06260721782
-2.06 85264
-Gaussian	-1.73937517407 35.6283913914
-2.44 207340
-Neuronal	/usr/local/lib/python3.5/dist-packages/sklearn/neural_network/multilayer_perceptron.py:564: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  % self.max_iter, ConvergenceWarning)
-/usr/local/lib/python3.5/dist-packages/sklearn/neural_network/multilayer_perceptron.py:564: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  % self.max_iter, ConvergenceWarning)
-/usr/local/lib/python3.5/dist-packages/sklearn/neural_network/multilayer_perceptron.py:564: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  % self.max_iter, ConvergenceWarning)
-/usr/local/lib/python3.5/dist-packages/sklearn/neural_network/multilayer_perceptron.py:564: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  % self.max_iter, ConvergenceWarning)
-/usr/local/lib/python3.5/dist-packages/sklearn/neural_network/multilayer_perceptron.py:564: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  % self.max_iter, ConvergenceWarning)
-/usr/local/lib/python3.5/dist-packages/sklearn/neural_network/multilayer_perceptron.py:564: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  % self.max_iter, ConvergenceWarning)
-/usr/local/lib/python3.5/dist-packages/sklearn/neural_network/multilayer_perceptron.py:564: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  % self.max_iter, ConvergenceWarning)
-/usr/local/lib/python3.5/dist-packages/sklearn/neural_network/multilayer_perceptron.py:564: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  % self.max_iter, ConvergenceWarning)
-/usr/local/lib/python3.5/dist-packages/sklearn/neural_network/multilayer_perceptron.py:564: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  % self.max_iter, ConvergenceWarning)
-/usr/local/lib/python3.5/dist-packages/sklearn/neural_network/multilayer_perceptron.py:564: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  % self.max_iter, ConvergenceWarning)
-/usr/local/lib/python3.5/dist-packages/sklearn/neural_network/multilayer_perceptron.py:564: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  % self.max_iter, ConvergenceWarning)
-0.340187691659 2.87168920656
-8.81 99380
-Bagging	0.692500229769 2.14512833706
-1.01 86452
-Logistic Regression	0.0204597701149 3.30640939599
-41.14 100284
-SVM	Traceback (most recent call last):
-  File "svm.py", line 20, in <module>
-    print(clf.score(test_x,test_y),mean_squared_log_error(test_y, pred))
-NameError: name 'clf' is not defined
-Command exited with non-zero status 1
-1.41 91152
+kNN	0.255174175345 3.08496235422 0.99  99468
+Decision Tree	0.441949626193 2.89373459852 0.69 ?;
+RandomForest	0.67557584325 2.11722414727 1.06 86076
+Gradient Boosting	0.676730872549 1.94233574408 4.57 91560
+AdaBoost	0.556088389411 2.96804607356 1.70 85548
+Gaussian	-1.73937517407 35.6283913914 2.28 207712
+Neuronal	
+Bagging	0.696132184553 2.01320100172 1.03 86320
+Logistic Regression	0.00684931506849 3.30640939599 34.63 95056
+SVM	-0.0583367990824 3.41331690689 0.89 91592

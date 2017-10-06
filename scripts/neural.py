@@ -18,7 +18,7 @@ test_y=data.iloc[-292:,37]
 scaler.fit(train_x)
 train_x = scaler.transform(train_x)
 test_x = scaler.transform(test_x)
-clf = MLPRegressor(alpha=0.0001)
+clf = MLPRegressor(alpha=0.01,max_iter=10000)
 pred = clf.fit(train_x,train_y).predict(test_x)
 
 kf = KFold(n_splits=10)
