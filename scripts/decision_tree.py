@@ -14,10 +14,11 @@ train_y=data.iloc[:-292,37]
 test_x=data.iloc[-292:,:37]
 test_y=data.iloc[-292:,37]
 
-regr = DecisionTreeRegressor(max_depth=5)
+regr = DecisionTreeRegressor()
+
 pred = regr.fit(train_x,train_y).predict(test_x)
 
 kf = KFold(n_splits=10)
-score = cross_val_score(regr, train_x, train_y,
+score = cross_val_score(regr, test_x, test_y,
 cv=kf)
-print(score.mean(),mean_squared_log_error(test_y, pred))
+print(regr.score(test_x,test_y),mean_squared_log_error(test_y, pred))
