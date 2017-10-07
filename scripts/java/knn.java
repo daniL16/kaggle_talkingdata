@@ -31,6 +31,6 @@ public class knn {
 
     Evaluation ev = new Evaluation(test_data);
     ev.evaluateModel(ibk,test_data);
-    System.out.println(ev.rootMeanSquaredError());
+    System.out.println("KNN "+ev.rootMeanSquaredError());
     }
 }

@@ -2,14 +2,14 @@
 import java.io.File;
 import java.io.IOException;
 import weka.classifiers.Classifier;
-import weka.classifiers.Evaluation;
+import weka.classifiers.evaluation.Evaluation;
 import weka.classifiers.AbstractClassifier;
 import weka.classifiers.meta.AdaBoostM1;
 import weka.classifiers.meta.Bagging;
 import weka.classifiers.meta.LogitBoost;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
-
+import weka.classifiers.evaluation.RootMeanSquareLogarithmicError;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -33,8 +33,10 @@ public class bagging {
    
     Classifier rf = new Bagging();
     rf.buildClassifier(train_data);
+    
     Evaluation ev = new Evaluation(test_data);
-    ev.evaluateModel(rf,test_data);
-    System.out.println(ev.toSummaryString());
+    ev.evaluateModel(rf, test_data);
+  
+    System.out.println("Bagging  "+ev.rootMeanSquaredError());
     }
 }

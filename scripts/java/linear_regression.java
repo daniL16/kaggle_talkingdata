@@ -32,6 +32,6 @@ public class linear_regression {
     lm.buildClassifier(train_data);
     Evaluation ev = new Evaluation(test_data);
     ev.evaluateModel(lm,test_data);
-    System.out.println(ev.toSummaryString());
+    System.out.println("Linear Regression  "+ev.rootMeanSquaredError());
     }
 }

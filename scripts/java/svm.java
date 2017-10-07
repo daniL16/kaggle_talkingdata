@@ -34,6 +34,6 @@ public class svm {
     svm.buildClassifier(train_data);
     Evaluation ev = new Evaluation(test_data);
     ev.evaluateModel(svm,test_data);
-    System.out.println(ev.toSummaryString());
+    System.out.println("SVM  "+ev.rootMeanSquaredError());
     } 
 }

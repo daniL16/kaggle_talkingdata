@@ -45,7 +45,7 @@ public class boosting {
     rf.buildClassifier(train_data);
     Evaluation ev = new Evaluation(test_data);
     ev.evaluateModel(rf,test_data);
-    System.out.println(ev.toSummaryString());
+    System.out.println("Boosting  "+ev.rootMeanSquaredError());
     }
 }
 
