@@ -4,5 +4,5 @@ set style data histogram
 set style fill solid border
 set style histogram clustered
 set term png
-set output 'memoria.png'
+set output './doc/img/memoria.png'
 plot for [COL=2:3] 'memory.dat' using COL:xticlabels(1) title columnheader

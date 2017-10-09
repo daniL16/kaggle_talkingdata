@@ -13,10 +13,10 @@ from sklearn.metrics import mean_squared_error
 data = pd.read_csv('../../data/train_proc.csv',header=0)
 test = pd.read_csv('../../data/test_proc.csv',header=0)
 
-train_x=data.iloc[:-292,:37]
-train_y=data.iloc[:-292,37]
-test_x=data.iloc[-292:,:37]
-test_y=data.iloc[-292:,37]
+train_x=data.iloc[:-292,:80]
+train_y=data.iloc[:-292,80]
+test_x=data.iloc[-292:,:80]
+test_y=data.iloc[-292:,80]
 test_id=test.iloc[:,0]
 
 clf =  linear_model.LogisticRegression()
