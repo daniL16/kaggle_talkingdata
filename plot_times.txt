@@ -1,0 +1,8 @@
+set logscale y
+set xtics rotate out
+set style data histogram
+set style fill solid border
+set style histogram clustered
+set term png
+set output 'tiempos.png'
+plot for [COL=2:3] 'times.dat' using COL:xticlabels(1) title columnheader

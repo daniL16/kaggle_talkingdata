@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILE='resultstime_python.txt'
+FILE='../results_python.txt'
 
 echo  -e "Algorithm,Score,Mean Squared,Time,Memory" > $FILE
 echo -n -e "kNN\t" &>> $FILE
@@ -12,8 +12,8 @@ echo -n -e "RandomForest\t" >> $FILE
 /usr/bin/time -f "%e %M" python3 random_forest.py &>> $FILE
 echo -n -e "Gradient Boosting\t" >> $FILE
 /usr/bin/time -f "%e %M" python3 gradient_boosting.py &>> $FILE
-echo -n -e "AdaBoost\t" >> $FILE
-/usr/bin/time -f "%e %M" python3 adaBoost.py &>> $FILE
+#echo -n -e "AdaBoost\t" >> $FILE
+#/usr/bin/time -f "%e %M" python3 adaBoost.py &>> $FILE
 echo -n -e "Gaussian\t" >> $FILE
 /usr/bin/time -f "%e %M" python3 gaussian.py &>> $FILE
 echo -n -e "Neuronal\t" >> $FILE

@@ -41,6 +41,7 @@ public class neural {
     test_data.setClassIndex(test_data.numAttributes() - 1);
    
     Classifier rf = new MultilayerPerceptron();
+    
     rf.buildClassifier(train_data);
     Evaluation ev = new Evaluation(test_data);
     ev.evaluateModel(rf,test_data);
