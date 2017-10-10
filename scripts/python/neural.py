@@ -1,7 +1,7 @@
 from sklearn.neural_network import MLPRegressor
 import pandas as pd
 import sys
-
+import time
 from math import sqrt
 from sklearn import ensemble
 from sklearn.model_selection import cross_val_score
@@ -26,10 +26,10 @@ scaler.fit(train_x)
 train_x = scaler.transform(train_x)
 test_x = scaler.transform(test_x)
 
-clf = MLPRegressor(solver='sgd',momentum=0.2,max_iter=10000,random_state=0,learning_rate='adaptive')
+clf = MLPRegressor(max_iter=500000)
 pred = clf.fit(train_x,train_y).predict(test_x)
 
-print(clf.score(test_x,test_y),sqrt(mean_squared_log_error(test_y, pred)),sqrt(mean_squared_error(test_y, pred)))
+#print(clf.score(test_x,test_y),sqrt(mean_squared_log_error(test_y, pred)),sqrt(mean_squared_error(test_y, pred)))
 if(len(sys.argv) >1 and sys.argv[1] == 'true'):
     prediction = clf.predict(test);
     prices=pd.DataFrame(prediction,columns=['SalePrice'])

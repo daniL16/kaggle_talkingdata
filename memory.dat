@@ -1,12 +1,12 @@
-Algorithm Python Java
-KNN 85448 64232
-DecisionTree 0 83888
-Gaussian  519664 123668
+Algorithm Python Java R
+KNN 85448 64232 170648
+DecisionTree 0 83888 #python da como memoria ? 
+Gaussian  138836 123668
 Neural 91268 71576
 SVM 92304 82680
-RandomForest 94712 203896
-Boosting 91560 81272
-Bagging 87620 126652
+RandomForest 94712 203896 113740
+Boosting 91560 81272 105804
+Bagging 88816 126652 144104
 
 
 
