@@ -18,13 +18,11 @@ nn <- neuralnet(f,data=train_[,-10],hidden=c(5,3),linear.output=T)
 
 # make predictions
 pr.nn <- compute(nn,test_[,-10])
-head(pr.nn$neurons)
 pr.nn_ <- pr.nn$net.result*(max(train$SalePrice)-min(train$SalePrice))+min(train$SalePrice)
-head(pr.nn_)
+
 
 table<- data.frame (cbind(test[,1],pr.nn_))
 colnames(table)[1]<-'Id'
 colnames(table)[2]<-'SalePrice'
-table
-write.csv(table[,1:2],file=paste('~/TFG/scripts/predictions/predictionNN',Sys.time(),'csv',sep = '.')
+write.csv(table[,1:2],file=paste('~/TFG/predictions/predictionNN',Sys.time(),'csv',sep = '.')
           ,row.names=FALSE)

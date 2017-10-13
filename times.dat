@@ -1,11 +1,11 @@
 Algorithm Python Java R
-KNN 0.66 0.52 2.05
-DecisionTree 0.67 0.59 0.40
+KNN 0.66 0.52 2.51
+DecisionTree 0.67 0.59 0.44
 Gaussian 1.08 6.10 #En java falla al cargar una implementacion
-Neural 129.04 42.86  
-SVM 70.09 10.41  
+Neural 129.04 42.86  15.25
+SVM 70.09 10.41  1.32
 RandomForest 1.83 1.63 4.73
-Boosting 9.99 1.15 17.72
-Bagging 0.85 1.88 2.47
+Boosting 9.99 1.15 16.92
+Bagging 0.85 1.88 2.38
 
 

@@ -30,4 +30,4 @@ if(len(sys.argv) >1 and sys.argv[1] == 'true'):
     print('Generando submision')
     prediction = clf.predict(test);
     prices=pd.DataFrame(prediction,columns=['SalePrice'])
-    pred = pd.concat([test_id,prices], axis=1).to_csv('../predictions/prediction%s.csv'%time.strftime("%c"),index=False)
+    pred = pd.concat([test_id,prices], axis=1).to_csv('../../predictions/prediction%s.csv'%time.strftime("%c"),index=False)

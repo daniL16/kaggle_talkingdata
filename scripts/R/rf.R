@@ -12,5 +12,5 @@ table<- data.frame (cbind(test[,1],pred))
 colnames(table)[1]<-'Id'
 colnames(table)[2]<-'SalePrice'
 
-write.csv(table[,1:2],file=paste('~/TFG/scripts/predictions/prediction',Sys.time(),'csv',sep = '.')
+write.csv(table[,1:2],file=paste('~/TFG/scrip../../predictions/prediction',Sys.time(),'csv',sep = '.')
 ,row.names=FALSE)
