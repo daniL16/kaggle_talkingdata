@@ -23,7 +23,7 @@ test_id=test.iloc[:,0]
 clf = gaussian_process.GaussianProcessRegressor()
 pred = clf.fit(train_x,train_y).predict(test_x)
 
-print(clf.score(test_x,test_y),sqrt(mean_squared_log_error(test_y, pred)),sqrt(mean_squared_error(test_y, pred)))
+print(clf.score(test_x,test_y),sqrt(mean_squared_log_error(test_y, pred)))
 if(len(sys.argv) >1 and sys.argv[1] == 'true'):
     prediction = clf.predict(test);
     prices=pd.DataFrame(prediction,columns=['SalePrice'])

@@ -5,7 +5,6 @@ FILE='../results_python.txt'
 echo  -e "Algorithm,Score,Mean Squared,Time,Memory" > $FILE
 echo -n -e "kNN\t" &>> $FILE
 /usr/bin/time -f "%e  %M" python3 knn.py &>> $FILE
-
 echo -n -e "Decision Tree\t" >> $FILE
 /usr/bin/time -f "%e %;" python3 decision_tree.py &>> $FILE
 echo -n -e "RandomForest\t" >> $FILE

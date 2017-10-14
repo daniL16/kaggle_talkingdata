@@ -3,6 +3,7 @@ import pandas as pd
 import sys
 import time
 
+from math import sqrt
 from sklearn import neighbors
 from sklearn.metrics import mean_squared_log_error
 

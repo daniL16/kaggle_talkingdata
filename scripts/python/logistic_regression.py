@@ -19,8 +19,7 @@ test_id=test.iloc[:,0]
 
 clf =  linear_model.LogisticRegression()
 pred = clf.fit(train_x,train_y).predict(test_x)
-kf = KFold(n_splits=10)
-score = cross_val_score(clf, test_x, test_y,cv=kf)
+
 print(clf.score(test_x,test_y),sqrt(mean_squared_log_error(test_y, pred)))
 if(len(sys.argv) >1 and sys.argv[1] == 'true'):
     prediction = clf.predict(test);
