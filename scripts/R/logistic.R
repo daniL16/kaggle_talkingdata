@@ -1,11 +1,15 @@
-library(ipred);
+library(logistf)
 
 train <- read.csv('~/TFG/data/train_proc.csv');
 test <- read.csv('~/TFG/data/test_proc.csv');
 trainX <- train[,-81];
 trainY <- train$SalePrice;
 
-mod <- bagging(SalePrice ~ ., data = train, nbagg = 25)
+# fit model
+
+mod <- logistf(SalePrice ~.,data = train)
+
+# make predictions
 pred <- predict(mod, test)
 
 table<- data.frame (cbind(test[,1],pred))

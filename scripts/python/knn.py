@@ -1,13 +1,10 @@
 import numpy as np
 import pandas as pd
-from math import sqrt
 import sys
+import time
 
 from sklearn import neighbors
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import KFold
 from sklearn.metrics import mean_squared_log_error
-from sklearn.metrics import mean_squared_error
 
 data = pd.read_csv('../../data/train_proc.csv',header=0)
 test = pd.read_csv('../../data/test_proc.csv',header=0)
@@ -22,7 +19,7 @@ test_id=test.iloc[:,0]
 clf = neighbors.KNeighborsRegressor()
 pred = clf.fit(train_x,train_y).predict(test_x)
 
-print(clf.score(test_x,test_y),sqrt(mean_squared_log_error(test_y, pred)),sqrt(mean_squared_error(test_y, pred)))
+print(clf.score(test_x,test_y),sqrt(mean_squared_log_error(test_y, pred)))
 
 if(len(sys.argv) >1 and sys.argv[1] == 'true'):
     prediction = clf.predict(test);

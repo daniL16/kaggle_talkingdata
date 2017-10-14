@@ -2,9 +2,9 @@ import numpy as np
 import pandas as pd
 import sys
 import time
+import xgboost as xgb
 
 from math import sqrt
-from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_squared_log_error
 
 
@@ -17,13 +17,11 @@ test_x=data.iloc[-292:,:80]
 test_y=data.iloc[-292:,80]
 test_id=test.iloc[:,0]
 
-clf = DecisionTreeRegressor()
+xgb = xgb.XGBRegressor().fit(train_x,train_y)
+pred = xgb.predict(test_x)
 
-pred = clf.fit(train_x,train_y).predict(test_x)
-
-
-print(clf.score(test_x,test_y),sqrt(mean_squared_log_error(test_y, pred)))
+print(xgb.score(test_x,test_y),sqrt(mean_squared_log_error(test_y, pred)))
 if(len(sys.argv) >1 and sys.argv[1] == 'true'):
-    prediction = clf.predict(test);
+    prediction = xgb.predict(test);
     prices=pd.DataFrame(prediction,columns=['SalePrice'])
     pred = pd.concat([test_id,prices], axis=1).to_csv('../../predictions/prediction%s.csv'%time.strftime("%c"),index=False)
