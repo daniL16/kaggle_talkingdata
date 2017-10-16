@@ -12,12 +12,10 @@ import java.io.File;
 import java.io.IOException;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
-import weka.classifiers.AbstractClassifier;
-import weka.classifiers.meta.AdaBoostM1;
-import weka.classifiers.meta.Bagging;
 import weka.classifiers.functions.GaussianProcesses;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
+import weka.classifiers.functions.LinearRegression;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -40,7 +38,7 @@ public class gaussian {
     train_data.setClassIndex(train_data.numAttributes() - 1);
     test_data.setClassIndex(test_data.numAttributes() - 1);
    
-    Classifier rf = new GaussianProcesses();
+    Classifier rf = new LinearRegression();
     rf.buildClassifier(train_data);
     Evaluation ev = new Evaluation(test_data);
     ev.evaluateModel(rf,test_data);

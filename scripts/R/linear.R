@@ -1,13 +1,14 @@
-library(logistf)
+
 
 train <- read.csv('~/TFG/data/train_proc.csv');
 test <- read.csv('~/TFG/data/test_proc.csv');
+
 trainX <- train[,-81];
 trainY <- train$SalePrice;
 
 # fit model
 
-mod <- logistf(SalePrice ~.,data = train)
+mod <- lm(SalePrice ~.,data = train)
 
 # make predictions
 pred <- predict(mod, test)
@@ -15,6 +16,6 @@ pred <- predict(mod, test)
 table<- data.frame (cbind(test[,1],pred))
 colnames(table)[1]<-'Id'
 colnames(table)[2]<-'SalePrice'
-
+table
 write.csv(table[,1:2],file=paste('~/TFG/predictions/prediction',Sys.time(),'csv',sep = '.')
           ,row.names=FALSE)
