@@ -1,9 +1,10 @@
-Algorithm,Score,Mean Squared,Time,Memory
-kNN 2.51  171528
-Decision Tree	0.44 ?;
-Neural	15.25 49424
-SVR	1.32 75376
-RandomForest 4.54 113264
-Gradient Boosting	16.92 105964
-Bagging	2.38 144356
-Gaussian	
+Algorithm,Time,Memory
+kNN 6.96  171304
+Decision Tree	0.37 ?;
+Neural	7.12 50392
+SVR	2.44 75256
+RandomForest	5.05 113696
+Gradient Boosting	17.03 105540
+Bagging	2.40 144516
+Logistic Regression	1044.94 209976
+Gaussian

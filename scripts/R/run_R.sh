@@ -17,8 +17,7 @@ echo -n -e "Gradient Boosting\t" >> $FILE
 /usr/bin/time -f "%e %M" Rscript boosting.R &>> $FILE
 echo -n -e "Bagging\t" >> $FILE
 /usr/bin/time -f "%e %M" Rscript bagging.R &>> $FILE
-echo -n -e "Logistic Regression\t" >> $FILE
-/usr/bin/time -f "%e %M" Rscript logistic.R &>> $FILE
+
 echo -n -e "Gaussian\t" >> $FILE
 /usr/bin/time -f "%e %M" Rscript gaussian.R &>> $FILE
 

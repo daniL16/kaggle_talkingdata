@@ -6,8 +6,8 @@ plot:
 	gnuplot plot_memory.txt
 	gnuplot plot_error.txt
 R:
-	~/TFG/scripts/R/run_R.sh
+	cd ~/TFG/scripts/R/;./run_R.sh
 
 run_py:
-	~/TFG/scripts/python/run_py.sh
+	cd ~/TFG/scripts/python/;./run_py.sh
 
