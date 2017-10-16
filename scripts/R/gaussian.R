@@ -1,24 +1,23 @@
-library(GPfit)
+library(gptk)
 library(caret)
 
 # load data
 train <- read.csv('~/TFG/data/train_proc.csv');
 test <- read.csv('~/TFG/data/test_proc.csv');
 
-preprocessParams <- preProcess(train, method=c("range"))
-train <- predict(preprocessParams, train)
-
 trainX <- train[,-81];
 trainY <- train$SalePrice;
+trainY <- matrix(unlist(trainY), ncol = 1, byrow = TRUE)
 
-sParams <- preProcess(test, method=c("range"))
-test <- predict(sParams, test)
+options = gpOptions()
+options$kern$comp = list("rbf", "white")
 
 # fit model
-mod <- GP_fit(trainX,trainY,maxit = 1)
+mod <- gpCreate(q =80,d = 1,X  = trainX,y = trainY,options)
+pred<- modelOut(mod,test)
 
 # make predictions
-pred <- predict(mod, test)
+
 
 table<- data.frame (cbind(test[,1],pred))
 colnames(table)[1]<-'Id'

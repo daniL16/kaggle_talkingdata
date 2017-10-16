@@ -4,8 +4,11 @@ import sys
 import time
 
 from math import sqrt
-from sklearn import neighbors
 from sklearn.metrics import mean_squared_log_error
+from sklearn.gaussian_process import GaussianProcessRegressor
+from sklearn.gaussian_process.kernels import WhiteKernel, RBF
+
+
 
 data = pd.read_csv('../../data/train_proc.csv',header=0)
 test = pd.read_csv('../../data/test_proc.csv',header=0)
@@ -14,14 +17,13 @@ train_x=data.iloc[:-292,:80]
 train_y=data.iloc[:-292,80]
 test_x=data.iloc[-292:,:80]
 test_y=data.iloc[-292:,80]
-
 test_id=test.iloc[:,0]
 
-reg = neighbors.KNeighborsRegressor()
+gp_kernel = RBF()+ WhiteKernel(1e-1)
+reg = GaussianProcessRegressor(kernel=gp_kernel,n_restarts_optimizer=5,normalize_y =True);
 pred = reg.fit(train_x,train_y).predict(test_x)
 
 print(reg.score(test_x,test_y),sqrt(mean_squared_log_error(test_y, pred)))
-
 if(len(sys.argv) >1 and sys.argv[1] == 'true'):
     prediction = reg.predict(test);
     prices=pd.DataFrame(prediction,columns=['SalePrice'])

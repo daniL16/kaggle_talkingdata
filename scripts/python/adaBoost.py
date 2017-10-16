@@ -13,11 +13,11 @@ train_y=data.iloc[:-292,37]
 test_x=data.iloc[-292:,:37]
 test_y=data.iloc[-292:,37]
 
-clf = ensemble.AdaBoostRegressor()
-pred = clf.fit(train_x,train_y).predict(test_x)
+reg = ensemble.AdaBoostRegressor()
+pred = reg.fit(train_x,train_y).predict(test_x)
 
 kf = KFold(n_splits=10)
-score = cross_val_score(clf,test_x, test_y,
+score = cross_val_score(reg,test_x, test_y,
 cv=kf)
 
-print(clf.score(test_x,test_y),mean_squared_log_error(test_y, pred))
+print(reg.score(test_x,test_y),mean_squared_log_error(test_y, pred))
