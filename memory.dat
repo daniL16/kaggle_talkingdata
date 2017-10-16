@@ -1,7 +1,7 @@
 Algorithm Python Java R
 KNN 85448 64232 171304
 #DecisionTree 0 83888 #python da como memoria ? 
-Linear 84580 98612 0.22 38616
+Linear 84580 98612  38616
 Neural 91268 71576 50392
 Gaussian 174476 125708 295576
 SVR 92304 82680 75256

@@ -16,6 +16,6 @@ pred <- predict(mod, test)
 table<- data.frame (cbind(test[,1],pred))
 colnames(table)[1]<-'Id'
 colnames(table)[2]<-'SalePrice'
-table
+
 write.csv(table[,1:2],file=paste('~/TFG/predictions/prediction',Sys.time(),'csv',sep = '.')
           ,row.names=FALSE)

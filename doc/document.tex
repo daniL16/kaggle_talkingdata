@@ -3,30 +3,38 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{float}
 \usepackage{graphicx}
 \begin{document}
 \section{Descripción del problema.}
 \section{Herramientas.}
-Las herramientas que se pueden usar para abordar la resolución del problema es amplia. Es por ello, que resulta difícil elegir la más adecuada. Tras un estudio de las bibliotecas disponibles para los distintos lenguajes de programación que domino, me decante por weka(java) y sklearn(python). Tras llevar a cabo la ejecución de distintos algoritmos se obtuvieron los siguientes resultados.
-\begin{figure}
-\includegraphics[]{./img/tiempos.png}
+Las herramientas que se pueden usar para abordar la resolución del problema es amplia. Es por ello, que resulta difícil elegir la más adecuada. Tras un estudio de las bibliotecas disponibles para los distintos lenguajes de programación que domino, me decante por weka(java),sklearn(python) y R. Para determinar cual de las 3 es la más conveniente en este caso, realizare pruebas de ejecución de los diferentes algoritmos y compararemos el tiempo de ejecución y el uso de memoria. Además tendré en cuenta la facilidad para tratar los datos y la biblioteca "en si". Los resultados obtenidos se muestran en las siguientes gráficas:	
+\begin{figure}[!h]
+\includegraphics[scale=0.75]{./img/tiempos.png}
 \end{figure}
-\begin{figure}
-\includegraphics[]{./img/memoria.png}
+\begin{figure}[H]
+\includegraphics[scale=0.75]{./img/memoria.png}
 \end{figure}
 
-Se puede observar que en términos de rendimiento, la librería weka es tanto superior a sklearn. Sin embargo, estos dos aspectos no son los únicos a tener en cuenta.
-** weka trabaja con arff
-**Es mas facil generar el archivo de resultados en sklearn.
-**sklearn mejor documentacion
-Estas razones unidas a que la diferencia de rendimiento no es "gran cosa" me hacen decantarme por usar Python. En particular, se usaran las siguientes bibliotecas:
+Observando los resultados podemos concluir que sklearn y weka ofrecen un rendimiento similar, mientras que R ofrece un mejor rendimiento para los algoritmos básicos pero es inferior en la ejecucion de multiclasificadores.
+En cuanto al tratamiento de los datos tanto de lectura como para generar el archivo de resultados, tanto en R como en sklearn se hace de forma cómoda. Otra cuestión a tener en cuenta, es la buena documentación con la que cuenta sklearn. Por tanto, poniendo en la balanza estos apuntes me decanto por Python como lenguaje a usar.
+
+En particular, se usaran las siguientes bibliotecas:
 \begin{itemize}
-\item NumPy....
-\item Pandas...
-\item Scikit Learn...
+\item NumPy.
+\item Pandas.
+\item Scikit Learn.
+\item XGBoost.
 \end{itemize}
 \section{Algoritmos.}
-\begin{figure}
-\includegraphics[]{./img/error.png}
+A priori desconocemos que algoritmo se adapta mejor a nuestro problema, es por ello que realizaremos un estudio comparando varios algoritmos. Los algoritmos elegidos son los siguientes:
+\begin{itemize}
+	\item algoritmos básicos como KNN,Linear Regression y Arboles de regresion
+	\item  algoritmos potentes como NeuralNetwork,Gaussian y SVM
+	\item multiclasificadores como Random Forest, Boosting y Bagging
+\end{itemize} En la siguiente gráfica se muestran los resultados obtenidos.
+\begin{figure}[H]
+\includegraphics[scale=0.75]{./img/error.png}
 \end{figure}
+Se puede observar que los algoritmos que menor error proporcionan son los multiclasificadores. Por tanto, al igual que los competidores, nos decantamos por esta opción.
 \end{document}
