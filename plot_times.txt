@@ -5,5 +5,5 @@ set style fill solid border
 set style histogram clustered
 set title 'Tiempo de ejecucion(s)'
 set term png
-set output './doc/img/tiempos.png'
+set output '../TFGdoc/doc/img/tiempos.png'
 plot for [COL=2:4] 'times.dat' using COL:xticlabels(1) title columnheader

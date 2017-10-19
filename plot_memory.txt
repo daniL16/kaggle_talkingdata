@@ -5,5 +5,5 @@ set style fill solid border
 set style histogram clustered
 set title 'Uso de memoria(KB)'
 set term png
-set output './doc/img/memoria.png'
+set output '../TFGdoc/doc/img/memoria.png'
 plot for [COL=2:4] 'memory.dat' using COL:xticlabels(1) title columnheader
