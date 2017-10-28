@@ -6,6 +6,8 @@ from sklearn.neighbors import LocalOutlierFactor
 from sklearn.covariance import EllipticEnvelope
 from scipy import stats
 from scipy.stats import norm, skew
+import warnings
+warnings.filterwarnings('ignore')
 
 train = pd.read_csv('../../data/train_proc.csv',header=0)
 #train["SalePrice"] = np.log1p(train["SalePrice"])

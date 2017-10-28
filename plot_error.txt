@@ -1,8 +1,8 @@
 reset
 set xtics rotate out
-set style data histogram
-set style fill solid border 
-set style histogram clustered
+set style data histogram 
+set style fill solid 5.0 border -1
+set style histogram clustered gap 4 
 set term png
 set output '../TFGdoc/doc/img/error.png'
-plot for [COL=2:2] 'error.dat' using COL:xticlabels(1) title columnheader linecolor rgb "#00FF00"
+plot for [COL=2:2] 'error.dat' using COL:xticlabels(1) title columnheader 

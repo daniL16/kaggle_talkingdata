@@ -7,10 +7,11 @@ from sklearn.cross_validation import cross_val_score,KFold
 from math import sqrt
 from sklearn.metrics import mean_squared_log_error,make_scorer
 from sklearn.preprocessing import Normalizer
+import warnings
+warnings.filterwarnings('ignore')
 
 train = pd.read_csv('../../data/train_outliers.csv',header=0,index_col='Id')
 test = pd.read_csv('../../data/test_proc.csv',header=0,index_col='Id')
-
 #norm = Normalizer()
 #test = pd.DataFrame(norm.fit_transform(test),columns=test.columns.values,index = test.index)
 #train_x = pd.DataFrame(norm.fit_transform(train_x),columns=train_x.columns.values,index=train.index)
@@ -19,6 +20,7 @@ test = pd.read_csv('../../data/test_proc.csv',header=0,index_col='Id')
 train_y = train.pop('SalePrice')
 train_x = train
 del (train)
+
 
 xgb = xgb.XGBRegressor().fit(train_x,train_y)
 
