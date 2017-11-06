@@ -12,10 +12,6 @@ warnings.filterwarnings('ignore')
 
 train = pd.read_csv('../../data/train_outliers.csv',header=0,index_col='Id')
 test = pd.read_csv('../../data/test_proc.csv',header=0,index_col='Id')
-#norm = Normalizer()
-#test = pd.DataFrame(norm.fit_transform(test),columns=test.columns.values,index = test.index)
-#train_x = pd.DataFrame(norm.fit_transform(train_x),columns=train_x.columns.values,index=train.index)
-#train["SalePrice"] = np.log1p(train["SalePrice"])
 
 train_y = train.pop('SalePrice')
 train_x = train
@@ -24,7 +20,7 @@ del (train)
 
 xgb = xgb.XGBRegressor().fit(train_x,train_y)
 
-kf = KFold(len(train_x), n_folds=10, random_state=42)
+kf = KFold(len(train_x), n_folds=7, random_state=42)
 score = cross_val_score(xgb, train_x, train_y,cv=kf, scoring=make_scorer(mean_squared_log_error))
 
 print(sqrt(score.mean()))

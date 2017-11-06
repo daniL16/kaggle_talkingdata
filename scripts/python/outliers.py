@@ -5,7 +5,6 @@ from sklearn.neighbors import LocalOutlierFactor
 data = pd.read_csv('../../data/train_proc.csv',header=0)
 
 rows = data.shape[0]
-
 clf=LocalOutlierFactor(contamination=0.01)
 y_pred = clf.fit_predict(data)  
 y_pred=pd.DataFrame(y_pred,columns=['Outlier'])
