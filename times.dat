@@ -5,8 +5,8 @@ DecisionTree 0.67 0.59 0.44
 Neural 68.89 42.86  15.25
 Gaussian 8.58  4.77 8.85 
 SVR 70.09 10.41  2.44
-RandomForest 1.83 1.63 5.05
-Boosting 1.17 1.15 17.03
+RandomForest 1.83 1.63 1.13
+Boosting 1.17 1.15 1.39
 Bagging 0.85 1.88 2.40
      
 

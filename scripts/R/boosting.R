@@ -7,8 +7,8 @@ trainY <- train$SalePrice;
 
 mod<-gbm(formula = SalePrice ~.,
                     data = train,
-                    n.trees = 10000)
-pred <- predict(mod, test,n.trees = 10000)
+                    n.trees = 10)
+pred <- predict(mod, test,n.trees = 10)
 
 table<- data.frame (cbind(test[,1],pred))
 colnames(table)[1]<-'Id'

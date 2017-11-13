@@ -9,8 +9,8 @@ from scipy.stats import norm, skew
 import warnings
 warnings.filterwarnings('ignore')
 
-train = pd.read_csv('../../data/train_proc.csv',header=0)
-
+train = pd.read_csv('../../data/train.csv',header=0)
+print(train.dtypes)
 sns.distplot(train['SalePrice'] , fit=norm);
 # Get the fitted parameters used by the function
 (mu, sigma) = norm.fit(train['SalePrice'])

@@ -5,7 +5,7 @@ test <- read.csv('~/TFG/data/test_proc.csv');
 trainX <- train[,-81];
 trainY <- train$SalePrice;
 
-mod<-randomForest(trainX,trainY,ntree=500,mtry = sqrt(81));
+mod<-randomForest(trainX,trainY,ntree=100,mtry = sqrt(81));
 pred<-predict(mod,test);
 
 table<- data.frame (cbind(test[,1],pred))
