@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.feature_selection import SelectFromModel
 from sklearn.ensemble import GradientBoostingRegressor
 
-train = pd.read_csv('../../data/train_proc.csv',header=0,index_col='Id')
+train = pd.read_csv('../../data/train_outliers.csv',header=0,index_col='Id')
 test = pd.read_csv('../../data/test_proc.csv',header=0,index_col='Id')
 
 train_x=train.iloc[:,:train.shape[1]-1]
@@ -26,6 +26,7 @@ test_new = model.transform(test)
 train = pd.concat([pd.DataFrame(train_new, columns=new_features,index=train.index),train_y],axis=1)
 test = pd.DataFrame(test_new,columns=new_features,index=test.index)
 
-test.to_csv('../../data/test_fs.csv')
 train.to_csv('../../data/train_fs.csv')
+test.to_csv('../../data/test_fs.csv')
+
 

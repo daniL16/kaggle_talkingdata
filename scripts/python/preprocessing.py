@@ -3,17 +3,19 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 from scipy.stats import norm
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler,MinMaxScaler
 from scipy import stats
 from sklearn.preprocessing import OneHotEncoder,Imputer
 from sklearn.preprocessing import LabelEncoder
-
+from scipy.stats import skew
 import warnings
 warnings.filterwarnings('ignore')
 
 train = pd.read_csv('../../data/train.csv',header=0,index_col='Id')
+train_y = train.pop('SalePrice')
 test = pd.read_csv('../../data/test.csv',header=0,index_col='Id')
 
+#NaN
 train['Alley'] = train['Alley'].fillna('None')
 test['Alley'] = test['Alley'].fillna('None')
 train['BsmtQual'] = train['BsmtQual'].fillna('None')
@@ -43,9 +45,11 @@ test['Fence'] = test['Fence'].fillna('None')
 train['MiscFeature'] = train['MiscFeature'].fillna('None')
 test['MiscFeature'] = test['MiscFeature'].fillna('None')
 train["MasVnrType"] = train["MasVnrType"].fillna("None")
-train["MasVnrArea"] = train["MasVnrArea"].fillna(0)
 test["MasVnrType"] = test["MasVnrType"].fillna("None")
+
+train["MasVnrArea"] = train["MasVnrArea"].fillna(0)
 test["MasVnrArea"] = test["MasVnrArea"].fillna(0)
+
 train["LotFrontage"] = train.groupby("Neighborhood")["LotFrontage"].transform(
     lambda x: x.fillna(x.median()))
 test["LotFrontage"] = test.groupby("Neighborhood")["LotFrontage"].transform(
@@ -77,57 +81,59 @@ for col in ('BsmtQual', 'BsmtCond', 'BsmtExposure', 'BsmtFinType1', 'BsmtFinType
 test['Exterior1st'] = test['Exterior1st'].fillna(test['Exterior1st'].mode()[0])
 test['Exterior2nd'] = test['Exterior2nd'].fillna(test['Exterior2nd'].mode()[0])
 
-
 train['MSSubClass'] = train['MSSubClass'].apply(str)
 train['OverallCond'] = train['OverallCond'].astype(str)
 train['YrSold'] = train['YrSold'].astype(str)
 train['MoSold'] = train['MoSold'].astype(str)
-
 test['MSSubClass'] = test['MSSubClass'].apply(str)
 test['OverallCond'] = test['OverallCond'].astype(str)
 test['YrSold'] = test['YrSold'].astype(str)
 test['MoSold'] = test['MoSold'].astype(str)
 
-train['GarageQual_Ex']=0
-train['PoolQC_Fa']=0
 
-cols = ('FireplaceQu', 'BsmtQual', 'BsmtCond', 'GarageQual', 'GarageCond', 
-        'ExterQual', 'ExterCond','HeatingQC', 'PoolQC', 'KitchenQual', 'BsmtFinType1', 
-        'BsmtFinType2', 'Functional', 'Fence', 'BsmtExposure', 'GarageFinish', 'LandSlope',
-        'LotShape', 'PavedDrive', 'Street', 'Alley', 'CentralAir', 'MSSubClass', 'OverallCond', 
-        'YrSold', 'MoSold')
-# process columns, apply LabelEncoder to categorical features
-for c in cols:
-    lbl = LabelEncoder() 
-    lbl.fit(list(train[c].values)) 
-    train[c] = lbl.transform(list(train[c].values))
-    lbl.fit(list(test[c].values)) 
-    test[c] = lbl.transform(list(test[c].values))
-    
-train['GrLivArea'] = np.log(train['GrLivArea'])
-test['GrLivArea'] = np.log(test['GrLivArea'])
+lbl = LabelEncoder()
+scaler = MinMaxScaler()
 
-#train.loc[train['TotalBsmtSF']>0,'TotalBsmtSF'] = np.log(train['TotalBsmtSF'])
-#test.loc[test['TotalBsmtSF']>0,'TotalBsmtSF'] = np.log(test['TotalBsmtSF'])
+train_numeric = train._get_numeric_data()
+scaler.fit(train_numeric)
+train_scaled = pd.DataFrame(scaler.transform(train_numeric),columns = train_numeric.columns.values,index=train.index)
 
-train['LotArea'] = np.log(train['LotArea'])
-test['LotArea'] = np.log(test['LotArea'])
 
-train = pd.get_dummies(train)
-test = pd.get_dummies(test)
+for col in train.columns.values:
+   # if col in train_numeric.columns.values :
+    #    if col != 'SalePrice':
+     #       train[col] = train_scaled[col]
+    if train[col].dtype == object :
+        lbl.fit(train[col])
+        train[col]=lbl.transform(train[col])
 
-cols = {'Condition2_RRAe', 'Exterior2nd_Other', 'Condition2_RRAn', 'RoofMatl_Roll', 'Heating_Floor', 'Exterior1st_Stone', 'Heating_OthW', 'HouseStyle_2.5Fin', 'Electrical_Mix', 'RoofMatl_Membran', 'Condition2_RRNn', 'RoofMatl_ClyTile', 'Exterior1st_ImStucc', 'RoofMatl_Metal','GarageQual_Ex','MiscFeature_TenC','PoolQC_Fa'}
-for col in cols:
-    test[col]=0
 
-train = train.reindex_axis(sorted(train.columns), axis=1)
-test = test.reindex_axis(sorted(test.columns), axis=1)
 
-im = Imputer()
-names = test.columns.values
-test_id = test.index
-test = im.fit_transform(test)
-test = pd.DataFrame(test,columns=names,index=test_id)
+test_numeric = test._get_numeric_data()
+scaler.fit(test_numeric)
+test_scaled = pd.DataFrame(scaler.transform(test_numeric),columns = test_numeric.columns.values,index=test.index)
+
+for col in test.columns.values:    
+    #if col in test_numeric.columns.values :
+    #    test[col] = test_scaled[col]
+    if test[col].dtype == object :
+        lbl.fit(test[col])
+        test[col]=lbl.transform(test[col])
+
+
+train_y= np.log(train_y)
+
+
+numeric_features = train.dtypes[train.dtypes != "object"].index
+
+skewed = train[train_numeric.columns.values].apply(lambda x: skew(x.dropna().astype(float)))
+skewed = skewed[skewed > abs(0.75)]
+skewed = skewed.index
+
+train[skewed] = np.log1p(train[skewed])
+test[skewed] = np.log1p(test[skewed])
+
+train = pd.concat([train,train_y],axis=1)
 
 
 train.to_csv('../../data/train_proc.csv')
