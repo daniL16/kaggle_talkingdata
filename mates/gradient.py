@@ -22,3 +22,4 @@ def partial21(n,k,x):
 def partial22(n,k,x):
     return ((n+k)*(n+k-1))/(2*(2*k-1))*Y_1(n-1,k-1,x)-(k+0.5)*Y_2(n-1,k+1,x)
 
+ 
