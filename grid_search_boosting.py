@@ -67,7 +67,6 @@ def low_ram_test_read():
     return test
 
 def processDates(df):
-    df['click_time_timestamp'] = df['click_time'].map(lambda x: x.timestamp())
     df['click_time'] = pd.to_datetime(df['click_time']).dt.date
     df['click_time_year'] =pd.to_numeric(df['click_time'].map(lambda x: x.year),downcast='unsigned')
     df['click_time_month'] =pd.to_numeric(df['click_time'].map(lambda x: x.month),downcast='unsigned')
@@ -77,27 +76,37 @@ def processDates(df):
 
 train = low_ram_train_read(int(sys.argv[2]))
 train = processDates(train)
-y = train['is_attributed']
+y = train['is_attributed'].values
 train.drop(['is_attributed', 'attributed_time','click_time'], axis=1, inplace=True)
 
-params = {'eta': 0.1, 
-          'max_depth': 4, 
-          'subsample': 0.9, 
-          'colsample_bytree': 0.7, 
-          'colsample_bylevel':0.7,
-          'min_child_weight':100,
-          'alpha':4,
-          'objective': 'binary:logistic', 
-          'eval_metric': 'auc', 
-          'random_state': 99, 
-          'silent': True}
-          
-x1, x2, y1, y2 = train_test_split(train, y, test_size=0.1, random_state=99)
-del train
-watchlist = [(xgb.DMatrix(x1, y1), 'train'), (xgb.DMatrix(x2, y2), 'valid')]
-model = xgb.train(params, xgb.DMatrix(x1, y1), 260, watchlist, maximize=True, verbose_eval=10)
-del x1,x2,y1,y2,watchlist
+skf = StratifiedKFold(n_splits=5, shuffle = True, random_state = 1001)
 
+parameters = {'nthread':[4], #when use hyperthread, xgboost may become slower
+              'objective':['binary:logistic'],
+              'learning_rate': [0.05], #so called `eta` value
+              'max_depth': [6],
+              'min_child_weight': [11],
+              'silent': [1],
+              'subsample': [0.8],
+              'colsample_bytree': [0.7],
+              'n_estimators': [5], #number of trees, change it to 1000 for better results
+              'missing':[-999],
+              'seed': [1337]}
+
+#x1, x2, y1, y2 = train_test_split(train, y, test_size=0.1, random_state=99)
+#watchlist = [(xgb.DMatrix(x1, y1), 'train'), (xgb.DMatrix(x2, y2), 'valid')]
+
+#model = xgb.train(params, xgb.DMatrix(x1, y1), 260, watchlist, maximize=True, verbose_eval=10
+#del x1,x2,y1,y2,watchlist
+
+xgb_model = xgb.XGBClassifier()
+clf = GridSearchCV(xgb_model, parameters, n_jobs=4, 
+                   cv=skf.split(train,y), 
+                   scoring='roc_auc',
+                   verbose=2, refit=True)
+
+clf.fit(train,y)
+del train,y
 gc.collect()
 
 if(len(sys.argv) >1 and sys.argv[1] == 'true'):
@@ -108,8 +117,9 @@ if(len(sys.argv) >1 and sys.argv[1] == 'true'):
     sub['click_id'] = test['click_id']
     test.drop(['click_id','click_time'], axis=1, inplace=True)
     
-    sub['is_attributed'] = model.predict(xgb.DMatrix(test), ntree_limit=model.best_ntree_limit)
+    sub['is_attributed'] = clf.best_estimator_.predict_proba(test)[:,1]
+    #sub['is_attributed'] = model.predict(xgb.DMatrix(test), ntree_limit=model.best_ntree_limit)
     if(len(sys.argv) > 3) :
-        sub.to_csv(path+'/predictions/' + sys.argv[3],index=False)
+        sub.to_csv('./predictions/' + sys.argv[3],index=False)
     else:
         sub.to_csv('./predictions/prediction%s.csv'%time.strftime("%c"),index=False)
