@@ -28,9 +28,9 @@ def partial32(n,k,theta,phi):
 theta,phi = var('theta phi')
 
 #parciales 1
-p1 = plot_implicit(Eq(partial11(4,2,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False)
-p2 = plot_implicit(Eq(partial21(4,2,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,line_color='r')
-p3 = plot_implicit(Eq(partial31(4,2,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,line_color='g')
+p1 = plot_implicit(Eq(partial11(7,4,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False)
+p2 = plot_implicit(Eq(partial21(7,4,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,line_color='r')
+p3 = plot_implicit(Eq(partial31(7,4,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,line_color='g')
 points1,action = p1[0].get_points()
 
 points1 = np.array([(float("{0:.4f}".format(x_int.mid)), float("{0:.4f}".format(y_int.mid))) for x_int, y_int in points1])
