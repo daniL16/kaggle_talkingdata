@@ -25,86 +25,53 @@ def partial22(n,k,theta,phi):
 def partial32(n,k,theta,phi):
     return (n+k)*Y_2(n-1,k,theta,phi)
 
+def printPoints(points,color):
+    curva_pt = np.array([(sin(theta)*sin(phi),sin(theta)*cos(phi),cos(theta)) for theta,phi in points])
+
+    xx = np.array([ np.float(pt[0]) for pt in curva_pt ])
+    yy = np.array([ np.float(pt[1]) for pt in curva_pt ])
+    zz = np.array([ np.float(pt[2]) for pt in curva_pt ])
+    
+    mlab.points3d(xx, yy, zz, scale_factor=0.05,color=color)
+
+
 theta,phi = var('theta phi')
 
 #parciales 1
-p1 = plot_implicit(Eq(partial11(7,4,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False)
-p2 = plot_implicit(Eq(partial21(7,4,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,line_color='r')
-p3 = plot_implicit(Eq(partial31(7,4,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,line_color='g')
-points1,action = p1[0].get_points()
+p1 = plot_implicit(Eq(partial11(7,4,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,depth=50)
+p2 = plot_implicit(Eq(partial21(7,4,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,line_color='r',depth=50)
+p3 = plot_implicit(Eq(partial31(7,4,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,line_color='g',depth=50)
 
-points1 = np.array([(float("{0:.4f}".format(x_int.mid)), float("{0:.4f}".format(y_int.mid))) for x_int, y_int in points1])
+#obtener puntos de las graficas
+points1,action = p1[0].get_points()
 points2,action = p2[0].get_points()
-points2 = np.array([(float("{0:.4f}".format(x_int.mid)), float("{0:.4f}".format(y_int.mid))) for x_int, y_int in points2])
 points3,action = p3[0].get_points()
+points1 = np.array([(float("{0:.4f}".format(x_int.mid)), float("{0:.4f}".format(y_int.mid))) for x_int, y_int in points1])
+points2 = np.array([(float("{0:.4f}".format(x_int.mid)), float("{0:.4f}".format(y_int.mid))) for x_int, y_int in points2])
 points3 = np.array([(float("{0:.4f}".format(x_int.mid)), float("{0:.4f}".format(y_int.mid))) for x_int, y_int in points3])
+#np.array a set
 points1 = set([tuple(x) for x in points1])
 points2 = set([tuple(x) for x in points2])
 points3 = set([tuple(x) for x in points3])
 
-
+#puntos de corte de las curvas
 cool_points = set.intersection(points1,points2,points3)
 #print(cool_points)
 #p1.extend(p2)
 #p1.extend(p3)
 #p1.show()
 
-curva1_pt = np.array([(sin(theta)*sin(phi),sin(theta)*cos(phi),cos(theta)) for theta,phi in points1])
-
-xx = np.array([ np.float(pt[0]) for pt in curva1_pt ])
-yy = np.array([ np.float(pt[1]) for pt in curva1_pt ])
-zz = np.array([ np.float(pt[2]) for pt in curva1_pt ])
-
-
-theta, phi = np.linspace(0, 2 * np.pi, 13), np.linspace(0, np.pi, 7)
+#pinta la esfera
+theta, phi = np.linspace(0, 2 * np.pi, 50), np.linspace(0, np.pi, 25)
 THETA, PHI = np.meshgrid(theta, phi)
 R = 1.0
 X = R * np.sin(PHI) * np.cos(THETA)
 Y = R * np.sin(PHI) * np.sin(THETA)
 Z = R * np.cos(PHI)
-
 mlab.figure(1, bgcolor=(1, 1, 1), fgcolor=(0, 0, 0), size=(600, 600))
 mlab.clf()
+mlab.mesh(X , Y ,Z, color=(0.9,0.9,0.9))
 
 
-mlab.mesh(X , Y ,Z, color=(0.0,0.5,0.5))
-mlab.points3d(xx, yy, zz, scale_factor=0.05)
-
-curva2_pt = np.array([(sin(theta)*sin(phi),sin(theta)*cos(phi),cos(theta)) for theta,phi in points2])
-
-xx = np.array([ np.float(pt[0]) for pt in curva2_pt ])
-yy = np.array([ np.float(pt[1]) for pt in curva2_pt ])
-zz = np.array([ np.float(pt[2]) for pt in curva2_pt ])
-
-mlab.points3d(xx, yy, zz, scale_factor=0.05,color=(0.2, 0.4, 0.5))
-
-curva3_pt = np.array([(sin(theta)*sin(phi),sin(theta)*cos(phi),cos(theta)) for theta,phi in points3])
-
-xx = np.array([ np.float(pt[0]) for pt in curva3_pt ])
-yy = np.array([ np.float(pt[1]) for pt in curva3_pt ])
-zz = np.array([ np.float(pt[2]) for pt in curva3_pt ])
-
-mlab.points3d(xx, yy, zz, scale_factor=0.05,color=(0.2, 0.1, 0.6))
-
+printPoints(cool_points,color=(1,0,0.3))
 mlab.show()
-#parciales2
-"""
-
-p1 = plot_implicit(Eq(partial12(4,2,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False)
-p2 = plot_implicit(Eq(partial22(4,2,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,line_color='r')
-p3 = plot_implicit(Eq(partial32(4,2,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,line_color='g')
-points1,action = p1[0].get_points()
-points1 = np.array([(x_int.mid, y_int.mid) for x_int, y_int in points1])
-points2,action = p2[0].get_points()
-points2 = np.array([(x_int.mid, y_int.mid) for x_int, y_int in points2])
-points3,action = p3[0].get_points()
-points3 = np.array([(x_int.mid, y_int.mid) for x_int, y_int in points3])
-points1 = set([tuple(x) for x in points1])
-points2 = set([tuple(x) for x in points2])
-points3 = set([tuple(x) for x in points3])
-
-
-print(set.intersection(points1,points2,points3))
-p1.extend(p2)
-p1.extend(p3)
-p1.show()"""
