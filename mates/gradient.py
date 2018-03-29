@@ -36,11 +36,12 @@ def printPoints(points,color):
 
 
 theta,phi = var('theta phi')
-
+n = 4
+k = 2
 #parciales 1
-p1 = plot_implicit(Eq(partial11(7,4,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,depth=50)
-p2 = plot_implicit(Eq(partial21(7,4,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,line_color='r',depth=50)
-p3 = plot_implicit(Eq(partial31(7,4,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,line_color='g',depth=50)
+p1 = plot_implicit(Eq(partial11(n,k,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False)
+p2 = plot_implicit(Eq(partial21(n,k,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,line_color='r')
+p3 = plot_implicit(Eq(partial31(n,k,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,line_color='g')
 
 #obtener puntos de las graficas
 points1,action = p1[0].get_points()
@@ -72,6 +73,7 @@ mlab.figure(1, bgcolor=(1, 1, 1), fgcolor=(0, 0, 0), size=(600, 600))
 mlab.clf()
 mlab.mesh(X , Y ,Z, color=(0.9,0.9,0.9))
 
-
 printPoints(cool_points,color=(1,0,0.3))
+name = 'points'+str(n)+str(k)+'.png'
+mlab.savefig(name)
 mlab.show()
