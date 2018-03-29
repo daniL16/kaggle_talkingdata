@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+from scipy import stats
 path ='/media/dani/E892136C92133E8E/TFG/data/'
 
 def imbalacedClass():
@@ -16,8 +17,10 @@ def imbalacedClass():
     plt.savefig('imbalacing.png')
 
 def normalDistribution(field):
-    train = pd.read_csv(path+'train.csv',usecols=[field])
+    train = pd.read_csv(path+'procDatestrain.csv',usecols=[field])
     sns.distplot(train[field])
+    plt.savefig('normalDist'+field+'.csv')
+    #plt.show()
 
 def missingData(field):
     train = pd.read_csv(path+'train.csv',usecols=[field])
@@ -27,12 +30,16 @@ def missingData(field):
     print(missing_data.head(20))
     
 def dataDistribution(field):
-    train = pd.read_csv(path+'train.csv',usecols=[field])
+    train = pd.read_csv(path+'procDatestrain.csv',usecols=[field])
     plt.hist(train.values)
     plt.savefig(field+'_distribution.png')
-    plt.show()
+    #plt.show()
     
-#imbalacedClass()
-#missingData('attributed_time')
-#normalDistribution()
-#dataDistribution('ip')
+
+features = ['ip', 'app', 'device', 'os', 'channel', 'click_time_timestamp','click_time_year','click_time_month','click_time_day']
+for feat in features:
+    dataDistribution(feat)
+
+missingData('attributed_time')
+normalDistribution('click_time_timestamp')
+imbalacedClass()

@@ -5,4 +5,4 @@ for submit in $(ls )
 do
 kaggle competitions submit -c talkingdata-adtracking-fraud-detection -f $submit -m "Message"
 done
-cd pwd
+cd $(pwd)
