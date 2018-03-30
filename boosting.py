@@ -69,10 +69,11 @@ def low_ram_test_read():
 def processDates(df):
     df['click_time_timestamp'] = df['click_time'].map(lambda x: x.timestamp())
     df['click_time'] = pd.to_datetime(df['click_time']).dt.date
-    df['click_time_year'] =pd.to_numeric(df['click_time'].map(lambda x: x.year),downcast='unsigned')
-    df['click_time_month'] =pd.to_numeric(df['click_time'].map(lambda x: x.month),downcast='unsigned')
+    #df['click_time_year'] =pd.to_numeric(df['click_time'].map(lambda x: x.year),downcast='unsigned')
+    #df['click_time_month'] =pd.to_numeric(df['click_time'].map(lambda x: x.month),downcast='unsigned')
     df['click_time_day'] =pd.to_numeric(df['click_time'].map(lambda x: x.day),downcast='unsigned')
     return df
+
 
 
 train = low_ram_train_read(int(sys.argv[2]))

@@ -31,15 +31,16 @@ def missingData(field):
     
 def dataDistribution(field):
     train = pd.read_csv(path+'procDatestrain.csv',usecols=[field])
+    print(train.head())
     plt.hist(train.values)
     plt.savefig(field+'_distribution.png')
     #plt.show()
     
 
-features = ['ip', 'app', 'device', 'os', 'channel', 'click_time_timestamp','click_time_year','click_time_month','click_time_day']
+features = ['click_time_month','click_time_day']
 for feat in features:
     dataDistribution(feat)
 
-missingData('attributed_time')
-normalDistribution('click_time_timestamp')
-imbalacedClass()
+#missingData('attributed_time')
+#normalDistribution('click_time_timestamp')
+#imbalacedClass()
