@@ -108,7 +108,7 @@ clf = GridSearchCV(xgb_model, parameters, n_jobs=4,
 clf.fit(train,y)
 del train,y
 gc.collect()
-
+print(clf.best_estimator_)
 if(len(sys.argv) >1 and sys.argv[1] == 'true'):
     print("making predictions")
     test = low_ram_test_read()

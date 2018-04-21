@@ -36,8 +36,8 @@ def printPoints(points,color):
 
 
 theta,phi = var('theta phi')
-n = 4
-k = 2
+n = 20
+k = 9
 #parciales 1
 p1 = plot_implicit(Eq(partial11(n,k,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False)
 p2 = plot_implicit(Eq(partial21(n,k,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show=False,line_color='r')
@@ -75,5 +75,5 @@ mlab.mesh(X , Y ,Z, color=(0.9,0.9,0.9))
 
 printPoints(cool_points,color=(1,0,0.3))
 name = 'points'+str(n)+str(k)+'.png'
-mlab.savefig(name)
+#mlab.savefig(name)
 mlab.show()
