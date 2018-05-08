@@ -47,9 +47,9 @@ p3 = plot_implicit(Eq(partial31(n,k,theta,phi),0),(theta,0,pi),(phi,0,2*pi),show
 points1,action = p1[0].get_points()
 points2,action = p2[0].get_points()
 points3,action = p3[0].get_points()
-points1 = np.array([(float("{0:.4f}".format(x_int.mid)), float("{0:.4f}".format(y_int.mid))) for x_int, y_int in points1])
-points2 = np.array([(float("{0:.4f}".format(x_int.mid)), float("{0:.4f}".format(y_int.mid))) for x_int, y_int in points2])
-points3 = np.array([(float("{0:.4f}".format(x_int.mid)), float("{0:.4f}".format(y_int.mid))) for x_int, y_int in points3])
+points1 = np.array([(float("{0:.5f}".format(x_int.mid)), float("{0:.5f}".format(y_int.mid))) for x_int, y_int in points1])
+points2 = np.array([(float("{0:.5f}".format(x_int.mid)), float("{0:.5f}".format(y_int.mid))) for x_int, y_int in points2])
+points3 = np.array([(float("{0:.5f}".format(x_int.mid)), float("{0:.5f}".format(y_int.mid))) for x_int, y_int in points3])
 #np.array a set
 points1 = set([tuple(x) for x in points1])
 points2 = set([tuple(x) for x in points2])

@@ -6,37 +6,36 @@ import numpy as np
 import pandas as pd
 import imblearn
 import sys
-from imblearn.under_sampling import RandomUnderSampler
+from imblearn.under_sampling import RandomUnderSampler,ClusterCentroids
 
-
-class AdaBoost:
-    def __init__(self, M, depth):
-        self.M = M
-        self.depth = depth
-        self.undersampler = RandomUnderSampler(return_indices=True,replacement=False)
-
-
-    def fit(self, X, Y):
+class CusBoost:
+    def __init__(self,instances,labels,k):
+        self.weight = []
+        self.X= instances
+        self.Y = labels
+        self.k = k
+        self.init_w = 1.0/len(self.X)
+        for i in range(len(self.X)):
+            self.weight.append(self.init_w)
+    def learning(self):
         self.models = []
         self.alphas = []
 
-        N, _ = X.shape
+        N, _ = self.X.shape
         W = np.ones(N) / N
+        for i in range(self.k):
+            print(i)
+            cus = ClusterCentroids(ratio='majority')
+            x_undersampled,y_undersampled= cus.fit_sample(self.X,self.Y)
+            cl = tree.DecisionTreeClassifier( splitter='best')
+            cl.fit(x_undersampled, y_undersampled)
 
-        for m in range(self.M):
-            print(m)
-            tr = tree.DecisionTreeClassifier(max_depth=self.depth, splitter='best')
-
-            X_undersampled, y_undersampled, chosen_indices = self.undersampler.fit_sample(X, Y)
-
-            tr.fit(X_undersampled, y_undersampled, sample_weight=W[chosen_indices])
-
-            P = tr.predict(X)
-
-            err = np.sum(W[P != Y])
+            P = cl.predict(self.X)
+            
+            err = np.sum(W[P != self.Y])
 
             if err > 0.5:
-                m = m - 1
+                i = i - 1
             if err <= 0:
                 err = 0.0000001
             else:
@@ -52,36 +51,19 @@ class AdaBoost:
                     # W = W * np.exp(-alpha * Y * P)  # vectorized form
                     W = W / W.sum()  # normalize so it sums to 1
 
-                self.models.append(tr)
+                self.models.append(cl)
                 self.alphas.append(alpha)
-                W = W.values
-    def predict(self, X):
+                
+
+    def predict(self,X):
         N, _ = X.shape
         FX = np.zeros(N)
         for alpha, tr in zip(self.alphas, self.models):
             FX += alpha * tr.predict(X)
       
         return np.sign(FX)
-
-    def predict_proba(self, X):
-        proba = sum(tr.predict_proba(X) * alpha for tr , alpha in zip(self.models,self.alphas) )
-
-
-        proba = np.array(proba)
-
-
-        proba = proba / sum(self.alphas)
-
-        proba = np.exp((1. / (2 - 1)) * proba)
-        normalizer = proba.sum(axis=1)[:, np.newaxis]
-        normalizer[normalizer == 0.0] = 1.0
-        # proba =  np.linspace(proba)
-        # proba = np.array(proba).astype(float)
-        proba = proba /  normalizer
-
-        return proba[:,0]
-
-    
+            
+            
 def low_ram_train_read(nrows,init_row=0):
     
     features = ['ip', 'app', 'device', 'os', 'channel', 'hour','click_time_timestamp','qty','ip_app_count','ip_app_os_count','is_attributed']
@@ -139,34 +121,26 @@ train = low_ram_train_read(int(sys.argv[1]))
 y = train['is_attributed']
 train.drop(['is_attributed'], axis=1, inplace=True)
 
-if sys.argv[3]=='ada':
-    model = AdaBoost(250,250)
-    model.fit(train,y)
-else:
-    base_classifier = tree.DecisionTreeClassifier()
-    model = RUSBoost(train,y,base_classifier,10,0.05)
-    model.learning()
+
+model = CusBoost(train,y,250)
+model.learning()
 
 del train
 print("making predictions")
 
 test = low_ram_test_read()
 sub = pd.DataFrame()
-proba = pd.DataFrame()
 sub['click_id'] = test['click_id']
-proba['click_id'] = test['click_id']
 test.drop(['click_id'], axis=1, inplace=True)
 
-if sys.argv[3]=='ada':
-    sub['is_attributed'] = model.predict(test)
-    proba['is_attributed'] = model.predict_proba(test)
-    
-else:
-    sub['is_attributed'] = model.classify(test)
+
+sub['is_attributed'] = model.predict(test)
+
 
 if(len(sys.argv) > 2) :
     sub.to_csv(path+'../predictions/' + sys.argv[2],index=False)
-    sub.to_csv(path+'../predictions/proba_' + sys.argv[2],index=False)
 else:
     sub.to_csv('./predictions/prediction%s.csv'%time.strftime("%c"),index=False)
-
+     
+            
+          
