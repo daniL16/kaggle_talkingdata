@@ -145,7 +145,6 @@ print('Train : '+mem_usage(x))
 y = x['is_attributed']
 x.drop(['is_attributed'], axis=1, inplace=True)
 
-#params={'colsample_bylevel': 1.0, 'colsample_bytree': 0.9, 'max_depth': 5, 'min_child_weight': 0, 'n_estimators': 250, 'subsample': 1.0}
 params = {'eta': 0.3,
           'tree_method': "gpu_exact",
           'grow_policy': "lossguide",

@@ -1,0 +1,73 @@
+95000000
+Loading  ip
+Loading  app
+Loading  device
+Loading  os
+Loading  channel
+Loading  hour
+Loading  day
+Loading  click_time_timestamp
+Loading  next_click
+Loading  wday
+Loading  qty
+Loading  ip_app_count
+Loading  ip_app_os_count
+Loading  is_attributed
+Train : 2446.17 MB
+Loading  ip
+Loading  app
+Loading  device
+Loading  os
+Loading  channel
+Loading  hour
+Loading  day
+Loading  click_time_timestamp
+Loading  next_click
+Loading  wday
+Loading  qty
+Loading  ip_app_count
+Loading  ip_app_os_count
+Loading  is_attributed
+Train : 35.19 MB
+[0]	train-auc:0.909125	valid-auc:0.90813
+[10]	train-auc:0.947425	valid-auc:0.946749
+[20]	train-auc:0.951492	valid-auc:0.950765
+[30]	train-auc:0.953004	valid-auc:0.952177
+[40]	train-auc:0.95505	valid-auc:0.954239
+[50]	train-auc:0.958591	valid-auc:0.957966
+[60]	train-auc:0.960211	valid-auc:0.959491
+[70]	train-auc:0.96143	valid-auc:0.960772
+[80]	train-auc:0.962918	valid-auc:0.962132
+[90]	train-auc:0.964216	valid-auc:0.963471
+[100]	train-auc:0.965488	valid-auc:0.964795
+[110]	train-auc:0.966949	valid-auc:0.966246
+[120]	train-auc:0.968721	valid-auc:0.968017
+[130]	train-auc:0.969747	valid-auc:0.969052
+[140]	train-auc:0.970487	valid-auc:0.969798
+[150]	train-auc:0.971038	valid-auc:0.970357
+[160]	train-auc:0.971553	valid-auc:0.970851
+[170]	train-auc:0.971956	valid-auc:0.971269
+[180]	train-auc:0.972402	valid-auc:0.971712
+[190]	train-auc:0.972836	valid-auc:0.97213
+[200]	train-auc:0.973182	valid-auc:0.972492
+[210]	train-auc:0.973424	valid-auc:0.972711
+[220]	train-auc:0.973738	valid-auc:0.973024
+[230]	train-auc:0.974042	valid-auc:0.973338
+[240]	train-auc:0.974312	valid-auc:0.97359
+[249]	train-auc:0.974576	valid-auc:0.973845
+{'ip_app_os_count': 309, 'app': 537, 'ip': 286, 'channel': 427, 'qty': 417, 'os': 365, 'device': 249, 'ip_app_count': 417, 'click_time_timestamp': 183}
+making predictions
+Loading  click_id
+Loading  ip
+Loading  app
+Loading  device
+Loading  os
+Loading  channel
+Loading  hour
+Loading  day
+Loading  click_time_timestamp
+Loading  next_click
+Loading  wday
+Loading  qty
+Loading  ip_app_count
+Loading  ip_app_os_count

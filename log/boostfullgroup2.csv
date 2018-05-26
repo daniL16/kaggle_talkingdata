@@ -1,0 +1,73 @@
+95000000
+Loading  ip
+Loading  app
+Loading  device
+Loading  os
+Loading  channel
+Loading  hour
+Loading  day
+Loading  click_time_timestamp
+Loading  next_click
+Loading  wday
+Loading  qty
+Loading  ip_app_count
+Loading  ip_app_os_count
+Loading  is_attributed
+Train : 2446.17 MB
+Loading  ip
+Loading  app
+Loading  device
+Loading  os
+Loading  channel
+Loading  hour
+Loading  day
+Loading  click_time_timestamp
+Loading  next_click
+Loading  wday
+Loading  qty
+Loading  ip_app_count
+Loading  ip_app_os_count
+Loading  is_attributed
+Train : 39.25 MB
+[0]	train-auc:0.93991	valid-auc:0.939329
+[10]	train-auc:0.981211	valid-auc:0.9808
+[20]	train-auc:0.983033	valid-auc:0.982556
+[30]	train-auc:0.985465	valid-auc:0.985109
+[40]	train-auc:0.984506	valid-auc:0.984078
+[50]	train-auc:0.985985	valid-auc:0.98556
+[60]	train-auc:0.986445	valid-auc:0.985999
+[70]	train-auc:0.986175	valid-auc:0.98569
+[80]	train-auc:0.986926	valid-auc:0.986447
+[90]	train-auc:0.987304	valid-auc:0.986846
+[100]	train-auc:0.987991	valid-auc:0.987563
+[110]	train-auc:0.98833	valid-auc:0.987903
+[120]	train-auc:0.989092	valid-auc:0.988698
+[130]	train-auc:0.989609	valid-auc:0.989245
+[140]	train-auc:0.989842	valid-auc:0.98949
+[150]	train-auc:0.990131	valid-auc:0.989785
+[160]	train-auc:0.99041	valid-auc:0.990074
+[170]	train-auc:0.990621	valid-auc:0.990288
+[180]	train-auc:0.990853	valid-auc:0.990537
+[190]	train-auc:0.990963	valid-auc:0.99064
+[200]	train-auc:0.99116	valid-auc:0.990832
+[210]	train-auc:0.991329	valid-auc:0.991016
+[220]	train-auc:0.991469	valid-auc:0.991143
+[230]	train-auc:0.991619	valid-auc:0.991283
+[240]	train-auc:0.991735	valid-auc:0.9914
+[249]	train-auc:0.991919	valid-auc:0.991595
+{'app': 462, 'qty': 329, 'nip_day_hh': 396, 'channel': 286, 'ip_app_count': 401, 'ip_app_os_count': 258, 'os': 303, 'ip': 157, 'device': 191, 'click_time_timestamp': 124, 'wday': 33}
+making predictions
+Loading  click_id
+Loading  ip
+Loading  app
+Loading  device
+Loading  os
+Loading  channel
+Loading  hour
+Loading  day
+Loading  click_time_timestamp
+Loading  next_click
+Loading  wday
+Loading  qty
+Loading  ip_app_count
+Loading  ip_app_os_count

@@ -1,0 +1,61 @@
+95000000
+Loading  ip
+Loading  app
+Loading  device
+Loading  os
+Loading  channel
+Loading  hour
+Loading  day
+Loading  nextClick
+Loading  click_time_timestamp
+Loading  is_attributed
+Train : 1902.58 MB
+Loading  ip
+Loading  app
+Loading  device
+Loading  os
+Loading  channel
+Loading  hour
+Loading  day
+Loading  nextClick
+Loading  click_time_timestamp
+Loading  is_attributed
+Train : 28.42 MB
+[0]	train-auc:0.98875	valid-auc:0.988153
+[10]	train-auc:0.998283	valid-auc:0.998035
+[20]	train-auc:0.999283	valid-auc:0.998977
+[30]	train-auc:0.999618	valid-auc:0.999216
+[40]	train-auc:0.999778	valid-auc:0.999384
+[50]	train-auc:0.999849	valid-auc:0.999443
+[60]	train-auc:0.999894	valid-auc:0.999466
+[70]	train-auc:0.999929	valid-auc:0.999493
+[80]	train-auc:0.999947	valid-auc:0.999508
+[90]	train-auc:0.99996	valid-auc:0.999521
+[100]	train-auc:0.999967	valid-auc:0.99952
+[110]	train-auc:0.999972	valid-auc:0.999528
+[120]	train-auc:0.999976	valid-auc:0.999534
+[130]	train-auc:0.99998	valid-auc:0.999535
+[140]	train-auc:0.999983	valid-auc:0.999534
+[150]	train-auc:0.999985	valid-auc:0.999537
+[160]	train-auc:0.999987	valid-auc:0.99953
+[170]	train-auc:0.999988	valid-auc:0.999535
+[180]	train-auc:0.999989	valid-auc:0.999531
+[190]	train-auc:0.99999	valid-auc:0.999529
+[200]	train-auc:0.999991	valid-auc:0.999533
+[210]	train-auc:0.999992	valid-auc:0.999536
+[220]	train-auc:0.999992	valid-auc:0.999538
+[230]	train-auc:0.999993	valid-auc:0.999535
+[240]	train-auc:0.999994	valid-auc:0.999535
+[249]	train-auc:0.999994	valid-auc:0.999534
+{'nip_day_hh': 23781, 'app': 15154, 'ip': 27646, 'click_time_timestamp': 32275, 'channel': 22530, 'device': 7904, 'nextClick': 760, 'os': 18293}
+making predictions
+Loading  click_id
+Loading  ip
+Loading  app
+Loading  device
+Loading  os
+Loading  channel
+Loading  hour
+Loading  day
+Loading  nextClick
+Loading  click_time_timestamp
