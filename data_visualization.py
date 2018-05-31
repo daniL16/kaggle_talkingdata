@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+import numpy as np
 from scipy import stats
 path ='/media/dani/E892136C92133E8E/TFG/data/'
 
@@ -36,15 +37,18 @@ def dataDistribution(field):
     plt.savefig(field+'_distribution.png')
 def correlation():
     df_train = pd.read_csv(path+'train.csv',usecols=['app','ip','os','device','channel'],nrows=50000000)
-    f, ax = pl.subplots(figsize=(10, 8))
-    corr = dataframe.corr()
+    f, ax = plt.subplots(figsize=(10, 8))
+    corr = df_train.corr()
+    sns.set(font_scale=1.5)
     sns.heatmap(corr, mask=np.zeros_like(corr, dtype=np.bool), cmap=sns.diverging_palette(220, 10, as_cmap=True),
             square=True, ax=ax)
-    plt.savefig('correlation.png')
+    ax.tick_params(labelsize=20)
+    plt.savefig('../TFGdoc/img/correlation.png')
+    plt.show()
 features = ['app','ip','os','device','channel','click_time','attributed_time']
-#for feat in features:
-    #dataDistribution(feat) 
-    #missingData(feat)
-#normalDistribution('click_time_timestamp')
-#imbalacedClass()
+for feat in features:
+    dataDistribution(feat) 
+    missingData(feat)
+normalDistribution('click_time_timestamp')
+imbalacedClass()
 correlation()

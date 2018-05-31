@@ -1,3 +1,5 @@
+#script para ajustar el archivo de prediciones
+#para ajustar las predicciones a [0,1] 
 import pandas as pd
 import sys
 
