@@ -14,13 +14,16 @@ class Gradient:
         self.points = []
         self.n = int(n)
         self.k = int(k)
+        self.plt = None
 
     def pol(self, t):
         c = ((self.n + self.k) * (self.n + self.k - 1)) / (2 * (2 * self.k - 1))
         d = (self.k + 0.5)
-        return c * gegenbauer(self.n - self.k, self.k - 0.5, t) + d * (1 - t * t) * gegenbauer(self.n - self.k - 2, self.k + 1.5, t)
+        return c * gegenbauer(self.n - self.k, self.k - 0.5, t) + d * (1 - t * t) * gegenbauer(self.n - self.k - 2,
+                                                                                               self.k + 1.5, t)
 
     def getPoints(self):
+        self.points = []
         # polos
         polo_norte = (math.pi, 0)
         polo_sur = (0, 0)
@@ -59,23 +62,46 @@ class Gradient:
         mlab.clf()
         mlab.mesh(X, Y, Z, color=(0.9, 0.9, 0.9))
 
-    def printPoints(self,points, color):
-        curva_pt = np.array([(sin(theta) * sin(phi), sin(theta) * cos(phi), cos(theta)) for theta, phi in points])
+    def printPoints(self, color=(1, 0, 0.3)):
+        curva_pt = np.array([(sin(theta) * sin(phi), sin(theta) * cos(phi), cos(theta)) for theta, phi in self.points])
         xx = np.array([np.float(pt[0]) for pt in curva_pt])
         yy = np.array([np.float(pt[1]) for pt in curva_pt])
         zz = np.array([np.float(pt[2]) for pt in curva_pt])
 
-        mlab.points3d(xx, yy, zz, scale_factor=0.05, color=color)
+        self.plt = mlab.points3d(xx, yy, zz, scale_factor=0.05, color=color)
 
     def pintarPuntosGradiente(self, color=(1, 0, 0.3)):
         self.getPoints();
         self.pintarEsfera()
-        self.printPoints(self.points, color)
+        self.printPoints(color)
 
         name = 'points' + str(n) + str(k) + '.png'
         # mlab.savefig(name) (bug)
+        self.anim()
         mlab.show()
 
+    @mlab.animate(delay=500)
+    def anim(self):
+        msplt = self.plt.mlab_source
+        k = self.k
+        for i in range(0, self.n):
+            print(str(i) + "/" + str(self.n))
+            # refactorizar aquí
+            self.k = i
+            self.getPoints()
+            curva_pt = np.array(
+                [(sin(theta) * sin(phi), sin(theta) * cos(phi), cos(theta)) for theta, phi in self.points])
+            xx = np.array([np.float(pt[0]) for pt in curva_pt])
+            yy = np.array([np.float(pt[1]) for pt in curva_pt])
+            zz = np.array([np.float(pt[2]) for pt in curva_pt])
+            msplt.reset(x=xx, y=yy, z=zz)
+            rotate = 0
+            while rotate <= 100:
+                mlab.roll(-90)
+                rotate += 1
+            yield
+        print("fin for")
+        mlab.close()
 
 
 n = sys.argv[1]
@@ -83,5 +109,3 @@ k = sys.argv[2]
 
 gradiente = Gradient(n, k)
 gradiente.pintarPuntosGradiente()
-
-

@@ -10,11 +10,11 @@ from imblearn.under_sampling import RandomUnderSampler
 
 
 class RUSBoost:
-    def __init__(self, M, depth):
+    def __init__(self, M, depth, verbose=False):
         self.M = M
         self.depth = depth
         self.undersampler = RandomUnderSampler(return_indices=True,replacement=False)
-
+        self.verbose = verbose
 
     def fit(self, X, Y):
         self.models = []
@@ -24,7 +24,9 @@ class RUSBoost:
         W = np.ones(N) / N
 
         for m in range(self.M):
-            print(m)
+            if self.verbose:
+                print ("Iteracion " + str(m))
+                
             tr = tree.DecisionTreeClassifier(max_depth=self.depth, splitter='best')
 
             X_undersampled, y_undersampled, chosen_indices = self.undersampler.fit_sample(X, Y)
@@ -75,8 +77,6 @@ class RUSBoost:
         proba = np.exp((1. / (2 - 1)) * proba)
         normalizer = proba.sum(axis=1)[:, np.newaxis]
         normalizer[normalizer == 0.0] = 1.0
-        # proba =  np.linspace(proba)
-        # proba = np.array(proba).astype(float)
         proba = proba /  normalizer
-
+        print(proba)
         return proba[:,0]

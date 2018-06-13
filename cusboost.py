@@ -6,9 +6,10 @@ import numpy as np
 import pandas as pd
 import imblearn
 import sys
-from imblearn.under_sampling import RandomUnderSampler,ClusterCentroids
+from imblearn.under_sampling import ClusterCentroids
 
-class CusBoost:
+
+class CUSBoost:
     def __init__(self,instances,labels,k):
         self.weight = []
         self.X= instances
@@ -62,85 +63,3 @@ class CusBoost:
             FX += alpha * tr.predict(X)
       
         return np.sign(FX)
-            
-            
-def low_ram_train_read(nrows,init_row=0):
-    
-    features = ['ip', 'app', 'device', 'os', 'channel', 'hour','click_time_timestamp','qty','ip_app_count','ip_app_os_count','is_attributed']
-   
-
-    int_features = ['ip', 'app', 'device', 'os', 'channel', 'hour','click_time_timestamp', 'qty','ip_app_count','ip_app_os_count']
-    bool_features = ['is_attributed']
-
-    for feature in features:
-        print("Loading ", feature)
-        #Import data one column at a time
-        if init_row == 0 :
-            train_unit = pd.read_csv(path+'train_proc.csv', usecols=[feature],nrows=nrows) #Change this from "train_sample" to "train" when you're comfortable
-        else:
-            train_unit = pd.read_csv(path+'train_proc.csv', usecols=[feature],nrows=nrows,skiprows=[1,int(init_row)]) #Change this from "train_sample" to "train" when you're comfortable!
-    
-        #Pandas imports the numeric data as int64...the following should downgrade that to uint16, saving ~1GB in RAM for each column
-        if feature in int_features:    train_unit = pd.to_numeric(train_unit[feature], downcast='unsigned')
-        #Convert time data to datetime data, instead of strings
-        
-        #Converts the target variable from int64 to boolean. Can also get away with uint16.
-        elif feature in bool_features: train_unit = train_unit[feature].astype('bool')
-    
-        #Make and append each column's data to a dataframe.
-        if feature == 'ip': train = pd.DataFrame(train_unit)
-        else: train[feature] = train_unit
-    return train
-
-def low_ram_test_read():
-
-    features = ['click_id','ip', 'app', 'device', 'os', 'channel', 'hour','click_time_timestamp','qty','ip_app_count','ip_app_os_count']
-    int_features = ['ip', 'app', 'device', 'os', 'channel', 'hour','click_time_timestamp','qty','ip_app_count','ip_app_os_count']
-    time_features=[]
-    for feature in features:
-        print("Loading ", feature)
-        #Import data one column at a time
-        test_unit = pd.read_csv(path+'test_proc.csv', usecols=[feature]) #Change this from "train_sample" to "train" when you're comfortable!
-    
-        #Pandas imports the numeric data as int64...the following should downgrade that to uint16, saving ~1GB in RAM for each column
-        if feature in int_features:    
-            test_unit = pd.to_numeric(test_unit[feature], downcast='unsigned')
-        #Convert time data to datetime data, instead of strings
-        elif feature in time_features: test_unit=pd.to_datetime(test_unit[feature])
-       
-        #Make and append each column's data to a dataframe.
-        if feature == 'click_id': test = pd.DataFrame(test_unit)
-        else: test[feature] = test_unit
-    return test
-
-
-
-path='/media/dani/E892136C92133E8E/TFG/data/'
-
-train = low_ram_train_read(int(sys.argv[1]))
-y = train['is_attributed']
-train.drop(['is_attributed'], axis=1, inplace=True)
-
-
-model = CusBoost(train,y,250)
-model.learning()
-
-del train
-print("making predictions")
-
-test = low_ram_test_read()
-sub = pd.DataFrame()
-sub['click_id'] = test['click_id']
-test.drop(['click_id'], axis=1, inplace=True)
-
-
-sub['is_attributed'] = model.predict(test)
-
-
-if(len(sys.argv) > 2) :
-    sub.to_csv(path+'../predictions/' + sys.argv[2],index=False)
-else:
-    sub.to_csv('./predictions/prediction%s.csv'%time.strftime("%c"),index=False)
-     
-            
-          
