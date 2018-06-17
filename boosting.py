@@ -1,4 +1,4 @@
-# usage : python3 boosting.py nrows outputfile method
+# usage : python3 boosting.py nrows [outputfile] [under_sampling method]
 
 import pandas as pd
 import xgboost as xgb
@@ -7,63 +7,16 @@ import sys
 import time
 import gc
 
-from imblearn.under_sampling import RandomUnderSampler, AllKNN, ClusterCentroids
 from rusboost import RUSBoost
 from cusboost import CUSBoost
 
+from tools import Tools
+
 # variables globales
-path = '/media/dani/E892136C92133E8E/TFG/data/'
-features = ['ip', 'app', 'device', 'os', 'channel', 'is_attributed', 'click_time_timestamp', 'hour', 'day',
-            'ip_app_media', 'ip_app_os_media', 'ip_app_count', 'ip_day_hour_count']
-int_features = ['ip', 'app', 'device', 'os', 'channel', 'click_time_timestamp', 'hour', 'day', 'ip_app_media',
-                'ip_app_os_media', 'ip_app_count', 'ip_day_hour_count']
-bool_features = ['is_attributed']
 step = 300000
 iters = int(float(sys.argv[1]) / step)
 x = pd.DataFrame()
 y = pd.DataFrame()
-
-
-# funcion auxiliar para monitorizar el uso de memoria
-def mem_usage(pandas_obj):
-    if isinstance(pandas_obj, pd.DataFrame):
-        usage_b = pandas_obj.memory_usage(deep=True).sum()
-    else:
-        usage_b = pandas_obj.memory_usage(deep=True)
-    usage_mb = usage_b / 1024 ** 2  # convert bytes to megabytes
-    return "{:03.2f} MB".format(usage_mb)
-
-
-# funciones para optimizar los conjuntos de train/test
-def low_ram_train_read(nrows, init_row=0):
-    for feature in features:
-        train_unit = pd.read_csv(path + 'train_proc8.csv', usecols=[feature], nrows=nrows)
-        if feature in int_features:
-            train_unit = pd.to_numeric(train_unit[feature], downcast='unsigned')
-
-        elif feature in bool_features:
-            train_unit = train_unit[feature].astype('bool')
-
-        if feature == 'ip':
-            train = pd.DataFrame(train_unit)
-        else:
-            train[feature] = train_unit
-    return train
-
-
-def low_ram_test_read():
-    features.insert(0, 'click_id')
-    features.remove('is_attributed')
-    for feature in features:
-        test_unit = pd.read_csv(path + 'test_proc8.csv', usecols=[feature])
-        if feature in int_features:
-            test_unit = pd.to_numeric(test_unit[feature], downcast='unsigned')
-        if feature == 'click_id':
-            test = pd.DataFrame(test_unit)
-        else:
-            test[feature] = test_unit
-    return test
-
 
 # undersampling
 def undersampling(type):
@@ -80,55 +33,65 @@ def undersampling(type):
     return x, y
 
 
+
+
+
 if (len(sys.argv) > 3):
+    # Aplicamos RUSBoosting
     if sys.argv[3] == 'rus':
         rus = RUSBoost(250, 4, True)
-        x = low_ram_train_read(int(sys.argv[1]))
+        x = Tools.low_ram_train_read(int(sys.argv[1]))
         y = x['is_attributed']
         x.drop(['is_attributed'], axis=1, inplace=True)
         rus.fit(x, y)
         del x, y
         gc.collect
         print("making predictions")
-        test = low_ram_test_read()
+        test = Tools.low_ram_test_read()
         sub = pd.DataFrame()
         sub['click_id'] = test['click_id']
         test.drop(['click_id'], axis=1, inplace=True)
         sub['is_attributed'] = rus.predict(test)
         sub.to_csv(path + '../predictions/' + sys.argv[2], index=False)
         sys.exit(0)
-    #    if sys.argv[3] == 'cus':
-    #        rus = CUSBoost(250,4,True)
-    #        x = low_ram_train_read(int(sys.argv[1]))
-    #        y = x['is_attributed']
-    #        x.drop(['is_attributed'], axis=1, inplace=True)
-    #        rus.fit(x,y)
-    #        del x,y
-    #        gc.collect
-    #        print("making predictions")
-    #        test = low_ram_test_read()
-    #        sub = pd.DataFrame()
-    #        sub['click_id'] = test['click_id']
-    #        test.drop(['click_id'], axis=1, inplace=True)
-    #        sub['is_attributed'] = rus.predict_proba(test)
-    #        sub.to_csv(path+'../predictions/' + sys.argv[2],index=False)
-    #        sys.exit(0)
+       
+    #Aplicamos CUSBoosting
+    elif sys.argv[3] == 'cus':
+            rus = CUSBoost(250,4,True)
+            x = Tools.low_ram_train_read(int(sys.argv[1]))
+            y = x['is_attributed']
+            x.drop(['is_attributed'], axis=1, inplace=True)
+            rus.fit(x,y)
+            del x,y
+            gc.collect
+            print("making predictions")
+            test = Tools.low_ram_test_read()
+            sub = pd.DataFrame()
+            sub['click_id'] = test['click_id']
+            test.drop(['click_id'], axis=1, inplace=True)
+            sub['is_attributed'] = rus.predict(test)
+            sub.to_csv(path+'../predictions/' + sys.argv[2],index=False)
+            sys.exit(0)
+    #boosting con un conjunto balanceado
+    #xgboost con un conjunto balanceado
     else:
         for i in range(0, iters):
             init_row = i * step
-            train = low_ram_train_read(step, init_row)
+            train = Tools.low_ram_train_read(step, init_row)
             label = train['is_attributed']
             train.drop(['is_attributed'], axis=1, inplace=True)
             xx, yy = undersampling(sys.argv[3])
             del train
             x.append(xx)
             y.append(yy)
+#boosting
 else:
-    x = low_ram_train_read(int(sys.argv[1]))
+    x = Tools.low_ram_train_read(int(sys.argv[1]))
     y = x['is_attributed']
     x.drop(['is_attributed'], axis=1, inplace=True)
-    print(mem_usage(x))
+    print(Tools.mem_usage(x))
 
+    
 params2 = {'eta': 0.07,
            'lambda': 21.0033,
            'max_delta_step': 5.0876,
@@ -157,7 +120,7 @@ del x, y, x1, x2, y1, y2, watchlist
 gc.collect()
 print(model.get_fscore())
 print("making predictions")
-test = low_ram_test_read()
+test = Tools.low_ram_test_read()
 sub = pd.DataFrame()
 sub['click_id'] = test['click_id']
 test.drop(['click_id'], axis=1, inplace=True)

@@ -65,18 +65,4 @@ class RUSBoost:
       
         return np.sign(FX)
 
-    def predict_proba(self, X):
-        proba = sum(tr.predict_proba(X) * alpha for tr , alpha in zip(self.models,self.alphas) )
-
-
-        proba = np.array(proba)
-
-
-        proba = proba / sum(self.alphas)
-
-        proba = np.exp((1. / (2 - 1)) * proba)
-        normalizer = proba.sum(axis=1)[:, np.newaxis]
-        normalizer[normalizer == 0.0] = 1.0
-        proba = proba /  normalizer
-        print(proba)
-        return proba[:,0]
+   

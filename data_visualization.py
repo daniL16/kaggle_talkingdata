@@ -4,6 +4,7 @@ import seaborn as sns
 import numpy as np
 from scipy import stats
 path ='/media/dani/E892136C92133E8E/TFG/data/'
+features = ['app','ip','os','device','channel','click_time','attributed_time']
 
 def imbalacedClass():
     train = pd.read_csv(path+'train.csv',usecols=['is_attributed'])
@@ -45,7 +46,8 @@ def correlation():
     ax.tick_params(labelsize=20)
     plt.savefig('../TFGdoc/img/correlation.png')
     plt.show()
-features = ['app','ip','os','device','channel','click_time','attributed_time']
+    
+    
 for feat in features:
     dataDistribution(feat) 
     missingData(feat)
