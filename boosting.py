@@ -9,6 +9,7 @@ import gc
 
 from rusboost import RUSBoost
 from cusboost import CUSBoost
+from imblearn.under_sampling import RandomUnderSampler, AllKNN, ClusterCentroids
 
 from tools import Tools
 
@@ -17,7 +18,7 @@ step = 300000
 iters = int(float(sys.argv[1]) / step)
 x = pd.DataFrame()
 y = pd.DataFrame()
-
+path = '/media/dani/E892136C92133E8E/TFG/'
 # undersampling
 def undersampling(type):
     if type == 'random':

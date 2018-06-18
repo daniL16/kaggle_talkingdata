@@ -2,13 +2,13 @@ import pandas as pd
 from xgboost import XGBClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import StratifiedKFold
-from imblearn.under_sampling import RandomUnderSampler, AllKNN, ClusterCentroids
+from imblearn.under_sampling import RandomUnderSampler
 
 import sys
 import tools as Tools
 
 train = Tools.low_ram_train_read(int(sys.argv[1]))
-is_attributed = data['is_attributed']
+is_attributed = train['is_attributed']
 train.drop(['is_attributed'],axis=1)
 
 und = RandomUnderSampler(ratio='majority',random_state=42)

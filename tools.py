@@ -1,5 +1,4 @@
 import pandas as pd
-from imblearn.under_sampling import RandomUnderSampler, AllKNN, ClusterCentroids
 
 
 class Tools:
@@ -12,20 +11,20 @@ class Tools:
         self.bool_features = ['is_attributed']
         
     # funcion auxiliar para monitorizar el uso de memoria
-    def mem_usage(obj):
-        if isinstance(pandas_obj, pd.DataFrame):
-            usage_b = pandas_obj.memory_usage(deep=True).sum()
+    def mem_usage(self,obj):
+        if isinstance(obj, pd.DataFrame):
+            usage_b = obj.memory_usage(deep=True).sum()
         else:
-            usage_b = pandas_obj.memory_usage(deep=True)
+            usage_b = obj.memory_usage(deep=True)
         usage_mb = usage_b / 1024 ** 2  # convert bytes to megabytes
         return "{:03.2f} MB".format(usage_mb)
     
 
 
     # funciones para optimizar la lectura de los conjuntos de train/test
-    def low_ram_train_read(nrows, init_row=0):
+    def low_ram_train_read(self,nrows, init_row=0):
         for feature in self.features:
-            train_chunk = pd.read_csv(path + 'train_proc8.csv', usecols=[feature], nrows=nrows)
+            train_chunk = pd.read_csv(self.path + 'train_proc.csv', usecols=[feature], nrows=nrows)
             if feature in self.int_features:
                 train_chunk = pd.to_numeric(train_chunk[feature], downcast='unsigned')
             elif feature in self.bool_features:
@@ -37,12 +36,12 @@ class Tools:
         return train
 
 
-    def low_ram_test_read():
+    def low_ram_test_read(self):
         feats = self.features
         feats.insert(0, 'click_id')
         feats.remove('is_attributed')
         for feature in feats:
-            test_chunk = pd.read_csv(path + 'test_proc8.csv', usecols=[feature])
+            test_chunk = pd.read_csv(self.path + 'test_proc.csv', usecols=[feature])
             if feature in self.int_features:
                 test_chunk = pd.to_numeric(test_chunk[feature], downcast='unsigned')
             if feature == 'click_id':
@@ -50,4 +49,3 @@ class Tools:
             else:
                 test[feature] = test_chunk
         return test
-    

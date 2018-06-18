@@ -81,7 +81,8 @@ class Gradient:
         if animacion:
             self.anim()
         mlab.show()
-        
+    
+    #funcion para generar la animacion
     @mlab.animate(delay=100)
     def anim(self):
         msplt = self.plt.mlab_source
@@ -89,6 +90,7 @@ class Gradient:
         start_time = time.time()  
         for i in range(self.current_k, self.n):
             print(str(i) + "/" + str(self.n))
+            # paramos el proceso 2 segundos para mejorar la visualización
             time.sleep(2)
             self.k = i
             self.getPoints()
@@ -99,14 +101,7 @@ class Gradient:
             yy = np.array([np.float(pt[1]) for pt in curva_pt])
             zz = np.array([np.float(pt[2]) for pt in curva_pt])
             msplt.reset(x=xx, y=yy, z=zz)
-#            rotate = 0
-#            while rotate <= 100:
-#                print("rotate")
-#                time.sleep(1)
-#                mlab.roll(math.pi/4)
-#                msplt.reset(x=xx, y=yy, z=zz)
-#                rotate += 1
-            print("--- %s seconds ---" % (time.time() - start_time))
+            print("--- %s seconds ---" % (time.time() -start_time))
             self.current_k = i
             yield
             

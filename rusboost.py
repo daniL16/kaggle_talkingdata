@@ -1,11 +1,5 @@
-from sklearn import svm
 from sklearn import tree
-from math import log
-import random
 import numpy as np
-import pandas as pd
-import imblearn
-import sys
 from imblearn.under_sampling import RandomUnderSampler
 
 

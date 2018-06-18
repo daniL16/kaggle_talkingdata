@@ -1,7 +1,6 @@
 import pandas as pd
 import sys
-import numpy as np
-import gc
+
 path ='/media/dani/E892136C92133E8E/TFG/data/'
 
 def processDates(type):

@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 import numpy as np
-from scipy import stats
+
 path ='/media/dani/E892136C92133E8E/TFG/data/'
 features = ['app','ip','os','device','channel','click_time','attributed_time']
 
