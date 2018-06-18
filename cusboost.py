@@ -1,3 +1,5 @@
+#forked from https://github.com/farshidrayhanuiu/CUSBoost
+
 from sklearn import tree
 import numpy as np
 from imblearn.under_sampling import ClusterCentroids
